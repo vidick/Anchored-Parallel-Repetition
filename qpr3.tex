@@ -7,33 +7,36 @@ This section is devoted to the analysis of the entangled value of repeated two-p
 %While we expect the arguments to carry over to the multiplayer case without any additional difficulty we leave this for future work and focus on two-player entangled games. We use $\X$ and $\Y$ (resp. $\A$ and $\B$) to denote the two players' respective question (resp. answer) sets in $G$, and following convention we name the first player Alice and the second Bob. Our main result is the following. 
 
 \begin{theorem}[Main Theorem]\label{thm:anchorpr_quantum}
-	There exists a universal constant $c > 0$ such that the following holds. For all $\alpha$-anchored games $G$, for all $0 < \eps \leq 1$, %satisfying $\eval(G) = 1-\eps$. Then
-%	$$ \eval(G^n)\leq \exp \left ( - \Omega \left( \frac{\poly(\alpha) \cdot \eps^8 \cdot n}{s}  \right) \right),$$
+	There exists a universal constant $c > 0$ such that the following holds. Let $0<\alpha\leq 1$ and $G$ an $\alpha$-anchored game. Then for all $0 < \eps \leq 1$,
 for all integers $n$, and for all $p$ satisfying
 \begin{equation}
 \label{eq:p}
-p \geq \frac{4}{\eps} \, \exp \Big ( - \frac{c \cdot \alpha^{48} \cdot \eps^{16} \cdot n}{s} \Big)
+p \geq \frac{4}{\eps} \, \exp \Big ( - \frac{c \cdot \alpha^{48} \cdot \eps^{16} \cdot n}{s} \Big)\;,
 %p \geq \exp \left ( - \Omega \left( \frac{\alpha^{48} \cdot \eps^{16} \cdot n}{s}  \right) \right)
 \end{equation}
-where  $s = \log |\A \times \B|$ is an upper bound on the bit length of the players' answers, we have
+where  $s =\lceil \log |\A \times \B|\rceil$\tnote{added ceilings}, 
 \[
-	\E(G^n,p) \geq \E(G,1 - \eps).
+	\E(G^n,p) \geq \E(G,1 - \eps)\;.
 \]
 \end{theorem}
 
-First, we establish an easy corollary that gives exponential-decay bounds on the entangled value of repeated anchored games.
+We give an easy corollary that provides exponential-decay bounds on the entangled value of repeated anchored games.
 
 \begin{corollary}
 Let $G$ be an $\alpha$-anchored game satisfying $\eval(G) < 1-\eps$. Then
 	$$ \eval(G^n)\leq \frac{4}{\eps} \, \exp \Big ( - \frac{c \cdot \alpha^{48} \cdot \eps^{16} \cdot n}{s} \Big)~.$$
 \end{corollary}
 \begin{proof}
-	This follows from \Cref{prop:entanglement-lb-to-value}. Suppose that $\eval(G^n)$ was larger than $p = \frac{4}{\eps} \, \exp \Big ( - \frac{c \cdot \alpha^{48} \cdot \eps^{16} \cdot n}{s} \Big)$. Then $\E(G^n,p) < \infty$, which would imply that $\E(G,1 - \eps) < \infty$, which contradicts the fact that $\eval(G) < 1 - \eps$.
+	\tnote{Removed; you did not actually use it. Remove the proposition? ``This follows from \Cref{prop:entanglement-lb-to-value}.''} Suppose that $\eval(G^n)$ is larger than 
+	\[p = \frac{4}{\eps} \, \exp \Big ( - \frac{c \cdot \alpha^{48} \cdot \eps^{16} \cdot n}{s} \Big)\;.\]
+	Then $\E(G^n,p) < +\infty$, which by Theorem~\ref{thm:anchorpr_quantum} and the choice of $p$ implies that $\E(G,1 - \eps) < \infty$. This contradicts the assumption that $\eval(G) < 1 - \eps$.
 \end{proof}
 
 %Thus the anchoring operation provides a general gap amplification transformation for the entangled value of any multiplayer game.
 
-We now proceed to prove \Cref{thm:anchorpr_quantum}. Fix an $\alpha$-anchored two-player game $G = (\X \times \Y,\A \times \B,\mu,V)$. Fix an $\eps > 0$ and a $p$ satisfying \Cref{eq:p}. First suppose that $\E(G^n,p) = +\infty$; then $\E(G^n,p) \geq \E(G,1 - \eps)$ trivially holds. The other case is that $\E(G^n,p) = d$ for some finite $d$. Let $\strategy^n = (\ket{\psi},A,B)$ be a $d$-dimensional strategy for $G^n$ with value $\eval(G^n,\strategy^n) = p$. Let $\ket{\psi}$ be a state in $\C_{E_A}^d \otimes \C_{E_B}^d$, and assume without loss of generality that $\ket{\psi}$ is invariant under permutation of the two registers, i.e. there exist basis vectors $\{ \ket{v_j} \}_j$ such that $\ket{\psi} = \sum_j \sqrt{\lambda_j} \ket{v_j} \ket{v_j}$. \footnote{This is because we can always conjugate Bob's POVMs with the inverse of a unitary map $U$ such that $\Id \otimes U \ket{\psi}$ is permutation invariant.} We aim to derive a $d$-dimensional strategy $\strategy$ for the single-copy game $G$ that succeeds with probability at least $1 - \eps$. 
+The remainder of this section is devoted to the proof of \Cref{thm:anchorpr_quantum}. Fix an $\alpha$-anchored two-player game $G = (\X \times \Y,\A \times \B,\mu,V)$. Fix an $\eps > 0$, integer $n\geq 1$ and $p$ satisfying \Cref{eq:p}. First suppose that $\E(G^n,p) = +\infty$; then $\E(G^n,p) \geq \E(G,1 - \eps)$ trivially holds. The other case is that $\E(G^n,p) = d$ for some finite $d$. Let $\strategy^n = (\ket{\psi},A,B)$ be a $d$-dimensional strategy for $G^n$ with value $\eval(G^n,\strategy^n) = p$. By conjugating the second player's measurement operators by a unitary $U$, and exchanging $\ket{\psi}$ with $\Id \otimes U \ket{\psi}$, we may assume without loss of generality that $\ket{\psi}$ is  invariant under permutation, i.e.\ can be written as 
+\[ \ket{\psi} \,=\, \sum_j \sqrt{\lambda_j} \ket{v_j} \ket{v_j}\,\in \, \C_{E_A}^d \otimes \C_{E_B}^d\]
+for an orthonormal basis $\{ \ket{v_j} \}_j$. Our goal is to show the existence of a $d$-dimensional strategy $\strategy$ for $G$ that succeeds with probability at least $1 - \eps$. 
 
 
 %Fix a strategy for $G^n$, consisting of a shared entangled state $\ket{\psi} \in \C_{E_A}^d \otimes \C_{E_B}^d$ and POVMs $\{A_{\bx}^{\ba} \}$ and $\{B_{\by}^{\bb}\}$ for Alice and Bob respectively. Without loss of generality we assume that $\ket{\psi}$ is invariant under permutation of the two registers, i.e. there exist basis vectors $\{ \ket{v_j} \}_j$ such that $\ket{\psi} = \sum_j \sqrt{\lambda_j} \ket{v_j} \ket{v_j}$. \footnote{This is because we can always conjugate Bob's operators with the inverse of a unitary map $U$ such that $\Id \otimes U \ket{\psi}$ is permutation invariant.} 
@@ -49,8 +52,8 @@ We introduce the random variables, entangled states and operators used in the pr
 
 
 \subsubsection{The probability measure $\P$} 
-Let $\mu_X$ and $\mu_Y$ denote the marginalizations of the game distribution $\mu_{XY}$ on the first and second coordinates, respectively. 
-We first construct a ``single copy'' probability distribution $\hat{P}$ for random variables $(D,M,X,Y)$. Let $D$ be uniformly random over $\{A,B\}$. Fix a ``noise'' parameter $\eta = \alpha/2$. Let $M$ have the following distribution: for all $x \in \X$ and $y \in \Y$,
+Let $\mu_X$ and $\mu_Y$ denote the marginals of the game distribution $\mu_{XY}$ on the first and second coordinates, respectively. 
+We first define a ``single copy'' distribution $\hat{P}$ as the law of random variables $(D,M,X,Y)$ defined as follows. Each random variable may depend on previously defined ones. We start with $D$, which is distributed uniformly over $\{A,B\}$. Fix a ``noise'' parameter $\eta = \alpha/2$. Let $M$ have the following distribution over $\X\times \Y$: for all $x \in \X$ and $y \in \Y$,
 \[
 	\P_{M | D = A}(x) = \left\{
 	\begin{array}{ll}
@@ -65,70 +68,68 @@ We first construct a ``single copy'' probability distribution $\hat{P}$ for rand
 	\end{array}
 \right.
 \]
-In other words, conditioned on $D=A$ (resp. $D = B$), the variable $M$ takes on a value of $\X$ (resp. $\Y$) from a rescaled version of the distribution $\mu_X$ (resp. $\mu_Y$) where less weight is given to the dummy question $\dummy$.
-
-Then, define the random variables $(X,Y)$ such that 
-\begin{enumerate}
-	\item If $D = A$, then $X$ is chosen to be an ``$\eta$-noisy'' copy of $M$; in other words, $X = M$ with probability $1 - \eta$, and $X = \dummy$ with probability $\eta$. Then, $Y$ takes on value $y$ with probability $\mu_{Y|X}(y | m)$ where $M = m$. 
-	\item If $D = B$, then $Y$ is chosen to be an ``$\eta$-noisy'' copy of $M$ and $X$ takes on value $x$ with probability $\mu_{X|Y}(x | m)$ where $M = m$. 
-\end{enumerate}
+In other words, conditioned on $D=A$ (resp. $D = B$), the variable $M$ takes on a value in $\X$ (resp. $\Y$) from a rescaled version of the distribution $\mu_X$ (resp. $\mu_Y$) where less weight is given to the dummy question $\dummy$. Finally, efine the random variables $(X,Y)$ as follows. 
+\begin{itemize}
+	\item If $D = A$ then $X$ is chosen to be an ``$\eta$-noisy'' copy of $M$. Precisely, $X = M$ with probability $1 - \eta$ and $X = \dummy$ with probability $\eta$. Define $Y$ to equal $y$ with probability $\mu_{Y|X}(y | m)$, where $m$ is the value of $M$. 
+	\item If $D = B$ then $Y$ is chosen to be an ``$\eta$-noisy'' copy of $M$ and $X$ equals $x$ with probability $\mu_{X|Y}(x | m)$, where $m$ is the value of $M$. 
+\end{itemize}
+This specifies the distribution $\hat{P}$. 
 
 
 \begin{claim}
 \label{clm:dependency-breaking-1}
-	Conditioned on $(D,M)$ the random variables $X$ and $Y$ are independent. In other words, for all instantiations $(d,m)$ of $(D,M)$, we have
-	\[
-		\hat{\P}_{XY | D=d,M=m}(x,y) = \hat{\P}_{X | D=d,M=m}(x) \cdot \hat{\P}_{Y | D=d,M=m}(y)~.
-	\]
+	Conditioned on $(D,M)$ the random variables $X$ and $Y$ are independent. 
 \end{claim}
 \begin{proof}
-	This follows directly from the construction.
+It follows directly from the construction that for every $(d,m)$ and $(x,y)$, 
+\[
+		\hat{\P}_{XY | D=d,M=m}(x,y) = \hat{\P}_{X | D=d,M=m}(x) \cdot \hat{\P}_{Y | D=d,M=m}(y)\;.\]
 \end{proof}
 
 
 \begin{claim}
 \label{clm:dependency-breaking-2}
- $\hat{\P}_{XY|D = A}(x,y) = \hat{\P}_{XY|D=B}(x,y) = \mu_{XY}(x,y)$ for all $x \in \X,y \in \Y$. In particular, the marginal distribution of $\hat{\P}_{XY}$ is the game distribution $\mu$. 
+ $\hat{\P}_{XY|D = A}(x,y) = \hat{\P}_{XY|D=B}(x,y) = \mu_{XY}(x,y)$ for all $x \in \X,y \in \Y$. In particular, the marginal distribution $\hat{\P}_{XY}$ is the game distribution $\mu$. 
 \end{claim}
+
 \begin{proof}
-	Fix $D = A$, and suppose that $x = \dummy$. Then 
+	Fix $D = A$, and suppose that $x = \dummy$. Using the conditional independence stated in Claim~\ref{clm:dependency-breaking-1} we can write 
 	\begin{align*}
-		&\hat{\P}_{XY | D = A}(\dummy,y) = \sum_{x' \in \X} \hat{\P}_{M | D = A}(x') \cdot \hat{\P}_{X | M=x',D=A}(\dummy) \cdot  \hat{\P}_{Y | M = x', D = A}(y)  \\
+		\hat{\P}_{XY | D = A}(\dummy,y) &= \sum_{x' \in \X} \hat{\P}_{M | D = A}(x') \cdot \hat{\P}_{X | M=x',D=A}(\dummy) \cdot  \hat{\P}_{Y | M = x', D = A}(y)  \\
 		&= \hat{\P}_{M | D = A}(\dummy) \cdot \hat{\P}_{X | M = \dummy, D = A}(\dummy) \cdot  \hat{\P}_{Y | M = \dummy, D = A}(y) \\
-		& \qquad \qquad + \sum_{x' \in \X \setminus \{\dummy\}} \hat{\P}_{M | D = A}(x') \cdot \hat{\P}_{X | M = x', D = A}(\dummy) \cdot  \hat{\P}_{Y | M = x, D = A}(\dummy) \\
-		\intertext{By how we defined the random variables, this is equal to}
+		& \qquad \qquad + \sum_{x' \in \X \setminus \{\dummy\}} \hat{\P}_{M | D = A}(x') \cdot \hat{\P}_{X | M = x', D = A}(\dummy) \cdot  \hat{\P}_{Y | M = x, D = A}(y) \\
 		&= \frac{\alpha - \eta}{1 - \eta} \cdot \mu_Y(y) + \frac{\eta}{1 - \eta} \sum_{x' \in \X \setminus \{\dummy\}} \mu_X(x') \cdot \mu_{Y|X}(y|x') \\
 		&= \frac{\alpha - \eta}{1 - \eta} \cdot \mu_Y(y) + \frac{\eta}{1 - \eta} \Big ( \mu_Y(y) - \mu_{XY}(\dummy,y) \Big ) \\
 		&= \frac{\alpha - \eta}{1 - \eta} \cdot \mu_Y(y) + \frac{\eta}{1 - \eta} \Big ( \mu_Y(y) - \mu_{Y}(y) \cdot \alpha \Big ) \\
 		&= \alpha \cdot \mu_Y(y) \\
 		&= \mu_{XY}(\dummy,y)~.
 	\end{align*}
-	On the other hand, suppose that $x \neq \dummy$. The random variable $X$ can only take this value if $M = x$, so we have
+	Now suppose that $x \neq \dummy$. The random variable $X$ can only take this value if $M = x$, so we have
 	\begin{align*}
 		\hat{\P}_{XY | D = A}(x,y) &= \hat{\P}_{M | D = A}(x) \cdot \hat{\P}_{X | M = x, D = A}(x) \cdot  \hat{\P}_{Y | M=x, D=A}(y) \\
 		&= \frac{1}{1 - \eta} \cdot \mu_X(x) \cdot (1 - \eta) \cdot \mu_{Y|X}(y | x) \\
 		&= \mu_{XY}(x,y)~.
 	\end{align*}
-	A symmetric argument holds for when $D = B$. We thus obtain the claim.
+	A symmetric argument holds for the case $D = B$. This shows the claim.
 \end{proof}
 
 
 
-We now construct a joint probability distribution $\P$ as follows. Let $\bD = (\bD_1,\ldots,\bD_n)$, $\bM = (\bM_1,\ldots,\bM_n)$, $\bX = (\bX_1,\ldots,\bX_n)$, and $\bY = (\bY_1,\ldots,\bY_n)$ be vectors of random variables, and define
+We define a distribution $\P$ as follows. Let $\bD = (\bD_1,\ldots,\bD_n)$, $\bM = (\bM_1,\ldots,\bM_n)$, $\bX = (\bX_1,\ldots,\bX_n)$, and $\bY = (\bY_1,\ldots,\bY_n)$ be vectors of random variables, and define
 \[
 	\P_{\bD \bM \bX \bY} = \prod_{i=1}^n \hat{\P}_{\bD_i \bM_i \bX_i \bY_i}~.
 \]
-In other words, $\P_{\bD \bM \bX \bY}$ is simply $n$ copies of the distribution $\hat{P}$. Finally, we define random variables $\bA = (\bA_i)_{i \in [n]}$ and $\bB = (\bB_i)_{i \in [n]}$ as follows. Conditioned on $\bX$ and $\bY$, the random variables $\bA,\bB$ are independent of $\bD$ and $\bM$. For all realizations $\bx, \by$ of $\bX$ and $\bY$, define
+Finally, define random variables $\bA = (\bA_i)_{i \in [n]}$ and $\bB = (\bB_i)_{i \in [n]}$ as follows. Conditioned on $\bX$ and $\bY$, the random variables $\bA,\bB$ are independent of $\bD$ and $\bM$. For all realizations $\bx, \by$ of $\bX$ and $\bY$, define
 \[
 	\P_{\bA \bB | \bX = \bx, \bY = \by}(\ba,\bb) = \bra{\psi} A_\bx(\ba) \otimes B_\by(\bb) \ket{\psi}
 \]
-for all $\ba = (\ba_1,\ldots,\ba_n) \in \A^n$ and $\bb = (\bb_1,\ldots,\bb_n) \in \B^n$. In other words, $\bA$ and $\bB$ represent the random answers that are produced by Alice and Bob in the strategy $\strategy$ when their question pair for game $i$ is $(\bx_i,\by_i)$. 
-
-Since conditioned on $\bX, \bY$, the answer variables $\bA$ and $\bB$ are independent of $\bD,\bM$, we have that the marginal distribution of the random variables $\bX \bY \bA \bB$ is
+for all $\ba = (\ba_1,\ldots,\ba_n) \in \A^n$ and $\bb = (\bb_1,\ldots,\bb_n) \in \B^n$. $\bA$ and $\bB$ are jointly distributed as answers produced by players using strategy $\strategy$\tnote{Earlier this is called $\strategy^n$. Many occurrences, I wasn't sure how you want to change it} when their question pair for the $i$-th game is $(\bx_i,\by_i)$. 
+Since conditioned on $\bX, \bY$, $\bA$ and $\bB$ are independent of $\bD,\bM$ we have that the marginal distribution of $\bX \bY \bA \bB$ is
 	\[
-		\P(\bx,\by,\ba,\bb) = \Big ( \prod_{i=1}^n \mu(\bx_i,\by_i) \Big) \cdot \bra{\psi} A^{\ba}_\bx \otimes B^{\bb}_\by \ket{\psi}
+		\P(\bx,\by,\ba,\bb) = \Big ( \prod_{i=1}^n \mu(\bx_i,\by_i) \Big) \cdot \bra{\psi} A^{\ba}_\bx \otimes B^{\bb}_\by \ket{\psi}\;,
 	\]
-	which corresponds exactly to the distribution of questions and answers in the repeated game $G^n$ when Alice and Bob use the strategy $\strategy$.
+	\tnote{Are you using both notation, $A_x^a$ and $A_x(a)$, or is the above a typo?}
+	which matches the joint distribution of questions and answers in the repeated game $G^n$ when the players use the strategy $\strategy$.
 
 %
 %
@@ -146,23 +147,20 @@ Since conditioned on $\bX, \bY$, the answer variables $\bA$ and $\bB$ are indepe
 
 
 \subsubsection{Dependency-breaking variables} 
-%We expand the probability space by introducing a collection of additional random variables that form what are called \emph{dependency-breaking variables}. 
-We now define \emph{dependency-breaking variables}. These are crucial for controlling the correlations that arise in the analysis when conditioning the probability distribution $\P$ on different events. 
 
-Let $C \subseteq [n]$ a fixed set of coordinates for the repeated game $G^n$. %By relabelling coordinates, we assume without loss of generality that $C=\{m+1, m+2, \ldots, n\}$ for some integer $m$. 
-%Let $(\bX,\bY)$ be distributed according to the product distribution $\mu^{ n}$ and $(A^n,B^n)$ be defined from  $X^n$ and $Y^n$ as follows: 
-%$$
-%	\P_{A^n B^n|X^n = x^n,Y^n = y^n}(a^n,b^n) = \bra{\psi} A^{a^n}_{x^n} \otimes B^{b^n}_{y^n} \ket{\psi}.
-%$$
+ 
+We introduce \emph{dependency-breaking variables}. These are crucial for controlling the correlations that arise in the analysis when conditioning the  distribution $\P$ on different events. 
+
+Let $C \subseteq [n]$ be a set of coordinates for the repeated game $G^n$. 
 Let $(\bX_C,\bY_C)$ and $(\bA_C,\bB_C)$ denote the players' questions and answers respectively associated with the coordinates indexed by $C$. For $i \in [n]$ let $W_i$ denote the indicator variable for the event that the players win round $i$; i.e. $V(\bX_i,\bY_i,\bA_i,\bB_i) = 1$. Let $W_C = \prod_{i \in C} W_i$. 
 
-For all $i \in [n] \setminus C$, define the $i$-th dependency-breaking variable $\bOmega_i = (\bD_i,\bM_i)$. When $\eta = 0$, this definition of dependency-breaking variable coincides with the one used by Holenstein in his proof of the classical parallel repetition theorem; in that case, the variable $\bM_i$ is coupled to either $\bX_i$ or $\bY_i$ exactly. In our case, however, we set $\eta$ to be a nonzero value that is related to $\alpha$, the anchoring probability. This ``noisy coupling'' between $\bOmega_i$ and the inputs $(\bX_i,\bY_i)$ is essential for our analysis. 
+For all $i \in [n] \setminus C$ define the $i$-th dependency-breaking variable $\bOmega_i$ as $\bOmega_i = (\bD_i,\bM_i)$. When $\eta = 0$ this definition coincides with the one used by Holenstein in his proof of the classical parallel repetition theorem\tnote{precise reference}; in that case, the variable $\bM_i$ is coupled to either $\bX_i$ or $\bY_i$ exactly. Here we set $\eta$ to be a nonzero value that is related to $\alpha$, the anchoring probability. This ``noisy coupling'' between $\bOmega_i$ and the inputs $(\bX_i,\bY_i)$ is important for our analysis. 
 
 
 %fixes one of $\bX_i$ or $\bY_i$. Thus, conditioned on $\bOmega_i$, $\bX_i$ and $\bY_i$ are independent of each other. This is the same dependency-breaking variable used in Holenstein's proof of parallel repetition. More precisely, 
 
 
-Define $\bOmega = (\bOmega_i)_{i \in [n] \setminus C} \cup (\bX_C,\bY_C)$. We denote realizations of the random variable $\bOmega$ using $\bomega = (\bomega_i)_{i \in [n] \setminus C} \cup (\bx_C,\by_C)$. For $i \in [n] \setminus C$, we write $\bOmega_\mi$ to denote $(\bOmega_j)_{j \in [n] \setminus (C \cup \{i\})} \cup (\bX_C,\bY_C)$, and write $\bomega_\mi$ to denote instantiations of $\bOmega_\mi$. We furthermore define variables $\bR = (\bOmega,\bA_C,\bB_C)$ and $\bR_\mi = (\bOmega_\mi,\bA_C,\bB_C)$ with realizations $\br = (\bomega,\ba_C,\bb_C)$ and $\br_\mi = (\bomega_\mi,\ba_C,\bb_C)$, respectively.
+Define $\bOmega = (\bOmega_i)_{i \in [n] \setminus C} \cup (\bX_C,\bY_C)$. We denote realizations of the random variable $\bOmega$ using $\bomega = (\bomega_i)_{i \in [n] \setminus C} \cup (\bx_C,\by_C)$. For $i \in [n] \setminus C$ we write $\bOmega_\mi$ to denote $(\bOmega_j)_{j \in [n] \setminus (C \cup \{i\})} \cup (\bX_C,\bY_C)$ and $\bomega_\mi$ to denote instantiations of $\bOmega_\mi$. We furthermore define variables $\bR = (\bOmega,\bA_C,\bB_C)$ and $\bR_\mi = (\bOmega_\mi,\bA_C,\bB_C)$ with realizations $\br = (\bomega,\ba_C,\bb_C)$ and $\br_\mi = (\bomega_\mi,\ba_C,\bb_C)$ respectively.
 
 %This is the same dependency-breaking variable used in Holenstein's proof of parallel repetition. The reason it is called ``dependency-breaking'' is because, conditioned on $\bR$, the questions $\bX$ and $\bY$ are independent:
 %
