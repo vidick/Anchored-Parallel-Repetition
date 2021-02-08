@@ -1,0 +1,149 @@
+\section{Introduction}\label{sec:anchorpr_intro}
+
+We study the problem of parallel repetition in both the multiplayer classical and quantum settings. We prove, by introducing and analyzing a simple variant of parallel repetition, exponential-decay parallel repetition theorems that apply to \emph{arbitrary} games with multiple players or with entangled players. In particular, we obtain the first general gap amplification technique for games in the multiplayer and quantum settings.
+
+
+%\subsection{Our main result} 
+
+%Since we consider both classical and quantum players, we distinguish between the \emph{classical value} (denoted by $\val(G)$) and the \emph{entangled value} (denoted by $\eval(G)$). The former is obtained by restricting the players to deterministic (i.e.~\emph{classical}) strategies, where each player's answer is a function of its question only (both private and shared randomness are in principle allowed, but easily seen not to help). The latter allows for quantum strategies, in which each player's answer is obtained as the outcome of a local measurement performed on a quantum state shared by the players.\footnote{The use of quantum states \emph{does not} allow communication between the players, but it does allow for correlations between their questions and answers that cannot be reproduced by any classical strategy.}
+
+
+Our main results can be summarized as follows; see \ref{thm:anchorpr_quantum} for a precise statement.
+
+\begin{theorem}[Main theorem, informal]
+\label{thm:main-informal}
+There exists a polynomial-time transformation, called \emph{anchoring}, that takes the description of an arbitrary two-player game $G$ and returns a two-player game $G_\dummy$ with the following properties:
+\begin{enumerate}
+\item $\eval(G_\dummy)=\frac{1}{4}+\frac{3}{4}\eval(G)$.
+\item If $\eval(G) = 1 - \delta$, then $ \eval(G_\dummy^n) \leq \exp(-\Omega(\delta^8 \cdot n))$,
+\end{enumerate}
+where the implied constants in the $\Omega(\cdot)$ only depend on the number of players and the cardinality of the answer sets. 
+\end{theorem}
+
+%\begin{remark}
+%We expect item 4. from the theorem to  extend to the case of the entangled value of $k$-player anchored games for $k>2$ using the same techniques, but leave the details for a future version of this paper.
+%%\tnote{changed formulation a bit. I don't want people to jump on this and do it for us, so I'm sort of phrasing like we're grabbing the token on the problem...we should really prove this is the near-future. no? Before publication.}. 
+%\end{remark}
+
+The idea of modifying  the game to facilitate its analysis under parallel repetition originates from the work of Feige and Kilian~\cite{feige2000two} which predates Raz's parallel repetition theorem. 
+%itself from the pre-Raz era of the study of parallel repetition. (Though the idea has been revisited and used also recently, see e.g.~\cite{kempe2011parallel, moshkovitz2014parallel}.) 
+Feige and Kilian introduce a transformation that converts an arbitrary game $G$ to a so-called \emph{miss-match} game $G^{FK}$. The transformation is \emph{value-preserving} in the sense that there is a precise affine relationship $\val(G^{FK}) = (2 + \val(G))/3$. Furthermore Feige and Kilian show that the value of the $n$-fold repetition of $G^{FK}$ decays \emph{polynomially} in $n$ whenever $\val(G)<1$. This enables them to establish a general gap amplification result without having to prove a parallel repetition theorem for arbitrary games. This is sufficient for many applications, including to hardness of approximation, for which it is enough that the gap amplification procedure be efficient and value-preserving. 
+
+Theorem~\ref{thm:main-informal} adopts a similar approach to that of Feige and Kilian by providing an arguably even simpler transformation,
+%\footnote{In particular the game $G^{FK}$ introduced in~\cite{feige2000two} is automatically anchored, \mohammad{Is it? See my email about this} and our results imply that Feige and Kilian's transformation leads to exponential decay even for the cases of multiplayer and two-player entangled games.} 
+\emph{anchoring}, which \emph{preserves both the classical and entangled value} of a game and for which we are able to prove an exponential decay under parallel repetition. In contrast, the transformation considered by Feige and Kilian does not in general preserve the entangled value, (HY: explain what this means). We proceed to describe our transformation and then discuss the role it plays in facilitating the proof of our parallel repetition theorem. 
+
+\subsection{The anchoring transformation} 
+Our parallel repetition results apply to a class of games that are produced by the following \emph{anchoring transformation}:
+%The anchoring transformation of Theorem~\ref{thm:main-informal} produces games of this type; however, anchored games can be more general. We give a full definition of anchored games in Section~\ref{sec:anchorpr_technical}. First we describe the anchoring transformation.
+%Although our parallel repetition theorem  applies to a rather more broad class of games, called \emph{anchored games}, for the purposes of this introduction we limit ourselves to games produced as a result of \emph{anchoring transformation} (though the latter are a small, though very important, subset of the whole class). See Section~\ref{sec:technical} for the discussion of anchored games in more generality.
+\begin{definition}[The anchoring transformation] \label{def:anchor_basic} 
+Let $G$ be a two-player game with question distribution $\mu$ on $\X\times \Y$, and verification predicate $V$. In the $\alpha$-anchored game $G_{\dummy}$  the referee chooses a question pair $(x,y)\in \X\times \Y$ according to $\mu$, and independently and with probability $\alpha$ replaces each of $x$ and $y$ with an auxiliary ``anchor'' symbol $\dummy$ to obtain the pair $(x', y')\in (\X\cup \{\dummy \}) \times (\Y\cup \{\dummy \})$ which is sent to the players as their respective questions. If any of $x',y'$ is $\dummy$ the referee accepts regardless of the players' answers; otherwise, the referee checks the players' answers according to the predicate $V$.
+\end{definition}
+
+\begin{lemma}
+Let $\alpha \in [0,1]$ and let $G$ be a two-player game. Then the quantum value of the $\alpha$-anchored game $G_\dummy$ is related to the quantum value of $G$ in the following way:
+\begin{gather*}
+	\omega^*(G_\dummy) = 1 - (1 - \alpha)^2 \cdot (1 - \omega^*(G))\;.
+\end{gather*}
+In particular, the quantum value of $G_\dummy$ is $1$ if and only if the quantum value of $G$ is $1$.
+\end{lemma}
+
+For a choice of $\alpha = 1 - \frac{\sqrt{3}}{2}$ it holds that both $\val(G_\dummy) = \frac{3}{4} \val(G) + \frac{1}{4}$ and  $\eval(G_\dummy) =\frac{3}{4} \eval(G) + \frac{1}{4}$. One can think of $G_\dummy$ as playing the original game $G$ with probability $3/4$, and a trivial game with probability $1/4$. The term ``anchored'' refers to the fact that question pairs chosen according to $\mu$ are all  ``anchored'' by a common question $(\dummy,\dummy)$. Though this anchor question makes the game $G_\dummy$ \emph{easier} to play than the game $G$ (in the sense that $\eval(G_\dummy) \geq \eval(G)$,  it facilitates showing that the quantum value of the repeated game $G_\dummy^n$ decays exponentially. At a high level, the anchor questions provide a convenient way to handle the complicated correlations that may arise when the players use non-product strategies in the repeated game, as we explain in the next section.
+
+\subsection{Proving parallel repetition by breaking correlations}
+In virtually all known (information theoretic) proofs of parallel repetition theorems,  the key step consists in arguing that the players' success probability in most instances of $G$ individually cannot be substantially larger than the value of $G$ itself, \emph{even when conditioned on the players winning a significant fraction of the instances}. Coupled with the possibility of using non-product strategies this conditioning introduces correlations between the player's questions which make the task of bounding their success probability in the remaining instances of $G$ non-trivial.
+%The exception here seems to be setting of parallel repetition of the \emph{no-signalling value}, a physicly motivated relaxation of quantum value, where interestingly the correlation breaking seem to play a lesser role \cite{buhrman2013parallel,arnon2014non, lancien2015parallel}.
+
+In the proof of his parallel repetition theorem, Raz~\cite{raz1998parallel} introduced a technique, further refined in subsequent work of Holenstein~\cite{Hol09}, to \emph{break} such correlations. The idea consists of introducing a \emph{dependency-breaking random variable} $\Omega$ satisfying two properties: (1) $\Omega$ can be sampled jointly, using shared randomness, by all players, and (2) conditioned on $\Omega$ and a pair of questions distributed according to $\mu$, the players are able to locally generate questions and answers from the same distribution as they would in the repeated game, \emph{conditioned on winning} a (not too large) subset of instances. These two requirements are at odds with each other, and the main difficulty is to design an $\Omega$ that satisfies both simultaneously. 
+
+Extending this approach to more players, or quantum strategies, remains a challenge. Rather than solving the general problem directly, we sidestep it and instead analyze the parallel repetition of anchored games, for which designing an appropriate dependency-breaking variable (or, in the case of entangled players, a dependency-breaking quantum state) is easier, though by no means trivial. Combined with the anchoring operation this yields a simple and efficient method to achieve hardness amplification for arbitrary games in the multiplayer and entangled-player settings. We give a more detailed explanation of how this is achieved in Section~\ref{sec:anchorpr_technical} below.
+
+ \subsection{Related work}\label{sec:related}
+
+
+The transformation from general games into anchored games that we introduce is inspired by the work of Feige and Kilian~\cite{feige2000two}. This alternative approach to achieving gap amplification is also used by Moshkovitz~\cite{moshkovitz2014parallel}, who shows how projection games can be ``fortified'', and gives a simple and elegant proof that the classical value of fortified games decays exponentially under parallel repetition (see also the follow-up work by Bhangle  et al.~\cite{BSVV}). In a separate work, we prove a parallel repetition theorem for the entangled value of fortified games~\cite{bavarian2016parallel}, giving an alternative general gap amplification method for entangled and multiplayer games.
+
+
+
+
+\section{Technical overview}
+\label{sec:anchorpr_technical} 
+
+We give a technical overview of anchored games and their parallel repetition. %For concreteness we focus on the case of two-player games. %For the full definition of $k$-player anchored games, see Section~\ref{subsec:games_def}.
+
+\begin{definition}[Anchored games] \label{def:anchored_two}
+Let $G$ be a two-player game with question alphabet $\X\times\Y$ and distribution $\mu$. For any $0<\alpha\leq 1$ we say that $G$ is $\alpha$-anchored if there exists a distinguished symbol $\dummy$ contained in both $\X$ and $\Y$, and furthermore %subsets $\X_\dummy \subseteq \X$ and $\Y_{\dummy}\subseteq \Y$ such that, denoting by $\mu$ the respective marginals of $\mu$ on both coordinates,
+\begin{enumerate}
+\item Both $\mu_X(\dummy), \mu_Y(\dummy) = \alpha$,
+\item For all $x \in \X$ and $y \in \Y$, we have $\mu(x,\dummy) = \mu_X(x) \cdot \alpha$ and $\mu(\dummy,y) = \alpha \cdot \mu_Y(y)$
+%\item Whenever $x\in\X_{\dummy}$ or $y\in\Y_{\dummy}$ it holds that $\mu(x,y)=\mu(x)\cdot \mu(y)$.
+\end{enumerate}
+where $\mu_X$ and $\mu_Y$ denote the marginalization of $\mu$ to its first and second coordinate, respectively.
+\end{definition}
+
+%Informally, a game is \emph{anchored} if each player independently has a significant probability of receiving a question from the set of ``anchor questions'' $\X_{\dummy}$ and $\Y_{\dummy}$.  An alternative way of thinking about the class of anchored games is to consider the case where $\mu$ is uniform over a set of edges in a bipartite graph on vertex set $\X \times \Y$; then the condition is that the induced subgraph on $\X_\dummy \times \Y_\dummy$ is a complete bipartite graph that is connected to the rest of $\X \times \Y$ and has weight at least $\alpha$. In other words, a game $G$ is anchored if it contains a free game that is connected to the entire game. 
+
+It is easy to see that the games $G_\dummy$ output by the anchoring transformation given in Definition \ref{def:anchor_basic} are $\alpha$-anchored. 
+%Free games are automatically $1$-anchored (set $\X_\dummy = \X$ and $\Y_\dummy = \Y$), but the class of anchored games is much broader; indeed assuming the Exponential Time Hypothesis it is unlikely that there exists a similar (efficient) reduction from general games to free games~\cite{aaronson2014multiple}. Additionally, since free games are anchored games, our parallel repetition theorems automatically reproduce the quantum and multiplayer parallel repetition of free games results of~\cite{jain2014parallel,chailloux2014parallel,chung2015parallel}, albeit with worse parameters.
+%
+\paragraph{Dependency-breaking variables and states.} 
+
+%
+%
+%%The main difficulty in analyzing the parallel repetition of a game is handling correlations that arise due to (a) non-product strategies, and (b) conditioning on a small-probability event (winning a significant fraction of coordinates). We elaborate upon this difficulty in more detail, focusing on the case of deterministic strategies.
+
+
+Essentially all known proofs of parallel repetition proceed via reduction, showing how a ``too good'' strategy  for the repeated game $G^n$ can be ``rounded'' into a strategy for $G$ with success probability strictly greater than $\val(G)$, yielding a contradiction. 
+
+Let $S^n$ be a strategy for $G^n$ that has a high success probability. By an inductive argument one can identify a set of coordinates $C$ and an index $i$ such that $\Pr(\text{Players win round $i$} | W) > \val(G) + \delta$, where $W$ is the event that the players' answers satisfy the predicate $V$ in all instances of $G$ indexed by $C$. Given a pair of questions $(x,y)$ in $G$ the strategy $S$ embeds them in the $i$-th coordinate of a $n$-tuple of questions 
+$$x_{[n]} y_{[n]} = \binom{x_1, x_2, \ldots, x_{i-1}, x, x_{i+1}, \ldots, x_n}{y_1, y_2, \ldots, y_{i-1}, y, y_{i+1}, \ldots, y_n}$$ 
+that is distributed according to $\P_{X_{[n]} Y_{[n]} | X_i = x, Y_i = y,W}$. The players then simulate $S^n$ on  $x_{[n]}$ and $y_{[n]}$ respectively to obtain answers $(a_1,\ldots,a_n)$ and $(b_1,\ldots,b_n)$, and return $(a_i,b_i)$ as their answers in $G$. The strategy $S$ succeeds with probability precisely $\Pr(\text{Win $i$} | W)$ in $G$, yielding the desired contradiction.
+
+As $S^n$ need not be a product strategy, conditioning on $W$ may introduce correlations that make $\P_{X_{[n]} Y_{[n]} | X_i = x, Y_i = y,W}$ impossible to sample exactly. A key insight in Raz' proof of parallel repetition is that it is still possible for the players to \emph{approximately} sample from this distribution. 
+Drawing on the work of Razborov~\cite{Razborov92}, Raz introduced a \emph{dependency-breaking variable} $\Omega$ with the following properties:
+\begin{itemize}
+\item[(a)] Given $\Omega$ the players can (approximately) locally sample $x_{[n]}$ and $y_{[n]}$ according to $\P_{X_{[n]} Y_{[n]} | X_i = x, Y_i = y, W}$,
+\item[(b)] The players can jointly sample $\Omega$ using shared randomness.
+\end{itemize}
+In~\cite{Hol09} $\Omega$ is defined so that a sample $\omega$ fixes at least one of $\{x_{i'}, y_{i'}\}$ for each $i' \neq i$. It can then be shown that conditioned on $x$, $\Omega$ is nearly (though not exactly) independent of $y$, and vice-versa. In other words, 
+\begin{equation}
+\label{eq:intro_cor_samp}
+	\P_{\Omega | X_i = x, W} \approx \P_{\Omega | X_i = x, Y_i = y, W} \approx \P_{\Omega | Y_i = y, W}
+\end{equation}
+where ``$\approx$'' denotes closeness in statistical distance. Eq.~\eqref{eq:intro_cor_samp}  suffices to guarantee that the players can \emph{approximately} sample the same $\omega$ from $\P_{\Omega | X_i = x, Y_i = y, W}$ with high probability, achieving point (b) above. This sampling is accomplished through a technique called \emph{correlated sampling}.
+
+This argument relies heavily on the assumption that there are only two players who employ a deterministic strategy. With more than two players, it is not known how to design an appropriate dependency-breaking variable $\Omega$ that satisfies requirements (a) and (b) above: in order to be jointly sampleable, $\Omega$ needs to fix as few inputs as possible; in order to allow players to locally sample their inputs conditioned on $\Omega$, the variable needs to fix as many inputs as possible. These two requirements are in direct conflict as soon as there are more than two players.
+
+In the quantum case the rounding argument seems to require that Alice and Bob jointly sample a \emph{dependency-breaking state} $\ket{\Omega_{x,y}}$, which again depends on both their inputs. Although it is technically more complicated, as a first approximation $\ket{\Omega_{x,y}}$ can be thought of as the players' post-measurement state, conditioned on $W$. Designing a state that simultaneously allows Alice and Bob to (a) simulate the execution of the $i$-th game in $G^n$ conditioned on $W$, and (b) locally generate $\ket{\Omega_{x,y}}$ without communication is the main obstacle to proving a fully general parallel repetition theorem for entangled games. 
+
+It has long been known that in the free games case (i.e. games with product question distributions) these troubles with the dependency-breaking variable disappear, and consequently we have parallel repetition theorems for free games for the multiplayer and quantum settings~\cite{chung2015parallel}. With free games involving more than two players, it can be shown that 
+\begin{equation}
+\P_{\Omega | X_i = x,Y_i = y,Z_i = z,\ldots,W} \approx \P_{\Omega | W},
+\label{eq:intro_free_multiplayer}
+\end{equation}
+on average over question tuples $(x,y,z,\ldots)$. In the quantum case,~\cite{JainPY14,ChaillouxS14,chung2015parallel} showed how to construct dependency-breaking states $\ket{\Omega_{X_i = x,Y_i = y,W}}$ and local unitaries $U_x$ and $V_y$ such that 
+\begin{equation}
+	(U_x \otimes V_y) \ket{\Omega} \approx \ket{\Omega_{X_i = x,Y_i = y,W}}
+	\label{eq:intro_free_quantum}
+\end{equation}
+for some fixed quantum state $\ket{\Omega}$. This eliminates the need for the players to use correlated sampling, as they can simply share a sample from $\P_{\Omega |W}$ or the quantum state $\ket{\Omega}$ from the outset. 
+
+\paragraph{Breaking correlations in repeated anchored games.} Rather than providing a complete extension of the framework of Raz and Holenstein to the multiplayer and quantum settings, we interpolate between the case of free games and the general setting by showing how the same framework of dependency-breaking variables and states can be extended to anchored games -- without using correlated sampling. We introduce dependency-breaking variables $\Omega$ and states $\ket{\Phi_{x,y}}$, and show that together they satisfy both Usefulness and Sampleability (properties discussed in Chapter~\ref{chap:parrep_overview}).
+
+The analysis for anchored games is more intricate than for free games. Proofs of the analogous statements for free games in~\cite{jain2013parallel,  chailloux2014parallel, chung2015parallel} make crucial use of the fact that all possible question tuples are possible. An anchored game can be far from having this property. Instead, we use the anchors as a ``home base'' that is connected to all questions. Intuitively, no matter what question tuple $(x,y,z,\ldots)$ we are considering, it is only a few replacements away from the set of anchor questions. Thus the dependency of the variable $\Omega$ or state $\ket{\Phi_{x,y}}$ on the questions can be iteratively removed by ``switching'' each players' question to an anchor as
+$$
+	\P_{\Omega | X_i = x,Y_i = y,Z_i = z,W} \approx \P_{\Omega | X_i = x,Y_i = y,Z_i \in \perp,W} \approx \P_{\Omega | X_i = x,Y_i = \dummy,Z_i = \dummy,W} \approx \P_{\Omega | X_i = \dummy,Y_i = \dummy,Z_i = \dummy,W}~.
+$$
+
+%The proofs of parallel repetition for entangled free games~\cite{JainPY14,ChaillouxS14,chung2015parallel} and projection games~\cite{DinurSV14} resolve this obstacle by arguing for the existence of local unitaries $U_x$ and $V_y$ and a universal state $\ket{\Omega}$ such that
+%\begin{equation}\label{eq:switch}
+%	U_x \otimes V_y \ket{\Omega} \approx \ket{\Omega_{x,y}}.
+%\end{equation}
+%Thus the players only need to share $\ket{\Omega}$ at the beginning of the simulation, and having received their separate inputs $x$ and $y$, apply the local unitaries $U_x$ and $V_y$ to obtain (an approximation of) the desired state $\ket{\Omega_{x,y}}$. The argument heavily relies on either the product question distribution assumption (in the case of~\cite{JainPY14,ChaillouxS14,chung2015parallel}) or special symmetries of projection games (in the case of~\cite{DinurSV14}).\footnote{The proof of Dinur et al. additionally involves a quantum analogue of Raz and Holenstein's so-called ``correlated sampling lemma'' based on embezzlement states. A quantum correlated sampling lemma by itself, however, is not sufficient for a proof of quantum parallel repetition.} 
+
+Dealing with quantum strategies adds another layer of complexity to the argument. The local unitaries $U_x$ and $V_y$ such that $U_x \otimes V_y \ket{\Phi} \approx \ket{\Phi_{xy}}$ are quite important in the arguments of~\cite{jain2014parallel,chailloux2014parallel,chung2015parallel}. The difficulty in extending the argument for free games to the case of general games is to show that these local unitaries each only depend on the input to a single player. In fact with the definition of $\ket{\Omega_{x,y}}$ used in these works it appears likely that this statement does not hold, thus a different approach must be found. 
+
+When the game is anchored, however, we are able to use the anchor question in order to show the existence of the required local unitaries $U_x$ and $V_y$ that each depend only on a single player's question. Achieving this requires us to introduce dependency-breaking states $\ket{\Omega_{x,y}}$ that are more complicated than those used in the free games case; in particular they include information about the \emph{classical} dependency-breaking variables of Raz and Holenstein. 
+
+To do this, we prove a sequence of approximate equalities: first we show that for most $x$ there exists $U_x$ such that $(U_x \otimes \Id) \ket{\Omega_{\dummy, \dummy}} \approx \ket{\Omega_{x,\dummy}}$, where $\ket{\Omega_{\dummy, \dummy}}$ denotes the dependency-breaking state in the case that both Alice and Bob receive the anchor question ``$\dummy$'', and $\ket{\Omega_{x,\dummy}}$ denotes the state when Alice receives $x$ and Bob receives ``$\dummy$''. Then we show that for all $y$ such that $\mu(y | x) > 0$ there exists a unitary $V_y$ such that $(\Id \otimes V_y) \ket{\Omega_{x,\dummy}} \approx \ket{\Omega_{x,y}}$. Accomplishing this step requires ideas and techniques going beyond those in the free games case. Interestingly, a crucial component of our proof is to argue the existence of a local unitary $R_{x,y}$ that depends on \emph{both} inputs $x$ and $y$. The unitary $R_{x,y}$ is not implemented by Alice or Bob in the simulation, but it is needed to show that $V_y$ maps $\ket{\Omega_{x,\dummy}}$ onto $\ket{\Omega_{x,y}}$. 

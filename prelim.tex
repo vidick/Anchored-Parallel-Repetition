@@ -1,0 +1,102 @@
+\section{Preliminaries}
+\label{sec:prelim}
+
+\subsection{Sets and indices} 
+For an integer $n$, we let $[n] = \{1,\ldots,n\}$. For an alphabet $\X$, we let $\X^n$ denote the $n$-fold Cartesian product of $\X$. We denote elements of $\X^n$ by boldfaced letters $\bx = (\bx_1,\ldots,\bx_n)$. For a subset $C = \{i_1,\ldots,i_t\} \subseteq [n]$, we let $\bx_C$ denote the ordered tuple $(\bx_{i_1},\ldots,\bx_{i_t})$.
+
+\subsection{Probability distributions, random variables, and expectations}\label{subsec:prob_dist}
+We let capital letters denote random variables and lower case letters denote specific realizations of random variables. We use boldfaced variables to denote tuples, e.g., $\bX := (\bX_1,\ldots,\bX_n)$, $\bx = (\bx_1,\ldots,\bx_n)$. For a subset $C \subset [n]$ we write $\bX_C$ to denote the sub-tuple of $\bX$ indexed by $C$. We use $\P_X$ to denote the probability distribution of random variable $X$, and $\P_X(x)$ to denote the probability that $X = x$ for some value $x$. For multiple random variables, e.g., $X, Y, Z$, $\P_{XYZ}(x,y,z)$  denotes their joint distribution with respect to some probability space understood from context. 
+
+We use $\P_{Y | X = x}(y)$ to denote the conditional distribution $\P_{YX}(y,x)/\P_X(x)$, which is defined when $\P_X(x) > 0$. When conditioning on many variables, we usually use the shorthand $\P_{X | y,z}$ to denote the distribution $\P_{X | Y =y,Z=z}$. For example, we write $\P_{V | \omega_\mi, \bx_i, \by_i}$ to denote $\P_{V | \Omega_\mi = \omega_\mi, \bX_i = \bx_i, \bY_i = \by_i}$. For an event $W$ we let $\P_{X Y | W}$ denote the distribution conditioned on $W$. We use the notation $\Ex_{X} f(x)$ and $\Ex_{\P_X} f(x)$ to denote the expectation $\sum_{x} \P_X(x) f(x)$. 
+
+Let $\P_{X_0}$ be a distribution of $\X$, and for every $x$ in the support of $\P_{X_0}$, let $\P_{Y | X_1 = x}$ be a conditional distribution defined over $\Y$. We define the distribution $\P_{X_0} \P_{Y | X_1}$ over $\X \times \Y$ as
+$$
+	(\P_{X_0} \P_{Y | X_1})(x,y) \,:=\, \P_{X_0}(x) \cdot \P_{Y | X_1 = x}(y).
+$$
+Additionally, we write $\P_{X_0 Z} \P_{Y | X_1}$ to denote the distribution $(\P_{X_0 Z} \P_{Y | X_1})(x,z,y) := \P_{X_0 Z}(x,z) \cdot \P_{Y | X_1 = x}(y)$.
+
+For two random variables $X_0$ and $X_1$ over the same set $\X$, $\P_{X_0} \approx_\eps \P_{X_1}$ indicates that the total variation distance between $\P_{X_0}$ and $\P_{X_1}$, 
+$$\| \P_{X_0} - \P_{X_1} \| \,:=\, \frac{1}{2}\sum_{x \in \X} |\P_{X_0}(x) - \P_{X_1} (x)|,$$
+ is at most $\eps$. 
+
+We repeatedly use the following simple lemma throughout the paper:
+\begin{lemma}\label{lem:trivial}
+Let $\Qsf_F$ and $\Ssf_F$ be two probability distributions of some random variable $F$, and let $\Rsf_{G | F}$ be a conditional probability distribution for some random variable $G$, conditioned on $F$. Then
+\[ \| \Qsf_{F} \Rsf_{G|F} - \Ssf_{F} \Rsf_{G|F}\|= \|\Qsf_{F}-\Ssf_{F}\|. \]
+Similarly, if we have two conditional probability distributions $\Qsf_{G|F}, \Ssf_{G|F}$ and a distribution $\Rsf_F$, we have
+\[
+\| \Rsf_F \Qsf_{G|F} - \Rsf_F \Ssf_{G|F} \| = \Ex_F \| \Qsf_{G|F = f} - \Ssf_{G|F=f} \|
+\]
+where $\Ex_F$ denotes the expectation over sampling $f$ from $\Rsf_F$.
+\end{lemma}
+\begin{proof}
+For the first part of the Lemma, we note that $ \| \Qsf_{F} \Rsf_{G|F} - \Ssf_{F} \Rsf_{G|F}\|$ is equal to
+\begin{align*}
+ \frac{1}{2}\sum_{f,g} | \Qsf(f) \Rsf(g|f)- \Ssf(f) \Rsf (g|f)|&=  \frac{1}{2}\sum_{f} |\Qsf(f)- \Ssf(f)| \cdot  \left( \sum_{g} \Rsf(g|f)  \right)\\
+&= \frac{1}{2}\sum_{f} | \Qsf(f)- \Ssf(f)|\\
+&= \|\Qsf_{F}-\Ssf_{F}\|.
+\end{align*}
+For the second part of the Lemma, we note that $\| \Rsf_F \Qsf_{G|F} - \Rsf_F \Ssf_{G|F} \|$ is equal to
+\begin{align*}
+\frac{1}{2}\sum_{f,g}	 | \Rsf(f) \Qsf(g|f) - \Rsf(f) \Ssf(g|f) | &= \sum_f \Rsf(f) \frac{1}{2} \sum_g	 | \Qsf(g|f) - \Ssf(g|f) | \\
+&= \sum_f \Rsf(f) \| \Qsf_{G|F = f} - \Ssf_{G|F=f} \|\;.
+\end{align*}
+\end{proof}
+
+\subsection{Quantum states and measurements}
+All Hilbert spaces considered in this paper are finite-dimensional. We write $\Id$ to denote the identity operator. For Hermitian matrices $A, B$ we write $A \preceq B$ to indicate that $A - B$ is positive semidefinite. For a linear operator $X$ acting on a complex vector space, we let $X[\cdot]$ to denote the map that takes linear operators $\rho \mapsto X\rho X^\dagger$.
+
+A density matrix is a positive semidefinite matrix with trace $1$. A positive operator-valued measure (POVM) $M$ acting on $\C^d$ with outcome set $\A$ is denoted as a function $M$ mapping outcomes $a \in \A$ to positive semidefinite operators acting on $\C^d$ such that $\sum_a M(a) = \Id$. 
+
+We use the convention that, when $\ket{\psi}$ is a pure state, $\psi$ refers to the rank-1 density matrix $\ketbra{\psi}{\psi}$. We use superscripts to denote system labels; so $\rho^{AB}$ denotes the density matrix on the systems $A$ and $B$. A \emph{classical-quantum (CQ)} state $\rho^{XE}$ is classical on $X$ and quantum on $E$ if it can be written as $\rho^{XE} = \sum_{x} p(x) \ketbra{x}{x}^X \otimes \rho^E_x$ for some probability measure $p(\cdot)$. The state $\rho^E_x$ defined to be the $E$ part of the state $\rho^{XE}$, conditioned on the classical register $X = x$. We write $\rho^{XE}_x$ to denote the state $\ketbra{x}{x}^X \otimes \rho^E_x$. %We often write expressions such as $\rho^{E|x}$ as shorthand for $\rho_{E|X = x}$ when it is clear from context which registers are being conditioned on. This will be useful when there are many classical variables to be conditioned on. 
+
+We generally decorate states (both pure states and density matrices) with superscripts to indicate the spaces and registers they reside in. 
+
+
+For a vector $\ket{\psi}$, we use $\| \ket{\psi} \|$ to denote its Euclidean length. For a matrix $A$, we use $\| A \|_1$ to denote its \emph{trace norm} $\Tr(\sqrt{A A^\dagger})$. 
+
+%\subsection{Norms and distance measures}
+
+
+
+\subsection{Nonlocal games}
+
+\begin{definition}[Nonlocal game]
+A \emph{nonlocal game} $G$ (or \emph{game} for short) is a tuple $(\X \times \Y,\A \times \B,\mu,V)$ where $\X, \Y$ are finite \emph{question sets}, $\A, \B$ are finite \emph{answer sets}, $\mu$ is a \emph{question distribution} over $\X \times \Y$, and $V: \X \times \Y \times \A \times \B \to \{0,1\}$ is a \emph{game predicate}.
+\end{definition}
+
+\begin{definition}[Parallel repetition of a nonlocal game]
+Let $G = (\X \times \Y,\A \times \B,\mu,V)$ be a nonlocal game. Then its \emph{$n$-fold parallel repetition} is a nonlocal game $G^n = (\X^n \times \Y^n, \A^n \times \B^n,\mu^n,V^n)$ where $\mu^n$ is the product distribution $\mu \times \cdots \times \mu$ over $(\X \times \Y)^n$, and $V^n: \X^n \times \Y^n \times \A^n \times \B^n \to \{0,1\}$ is the game predicate defined as
+\[
+	V^n(\bx,\by,\ba,\bb) = \prod_{i=1}^n V(\bx_i,\by_i,\ba_i,\bb_i)
+\]
+for all $\bx \in \X^n,\by \in \Y^n,\ba \in \A^n,\bb \in \B^n$.
+\end{definition}
+
+\begin{definition}[Quantum strategies]
+Let $G = (\X \times \Y,\A \times \B,\mu,V)$ be a nonlocal game. A \emph{quantum strategy $\strategy$ for the game $G$} is a tuple $(\ket{\psi}, A,B)$ where $\ket{\psi}$ is a bipartite state in $\C^d \times \C^d$ for some positive integer $d$, and $A = \{ A_x \}_{x \in \X}$ and $B = \{B_y\}_{y \in \Y}$ are collections of POVMs (with outcomes in $\A$ and $\B$, respectively) acting on $\C^d$. The \emph{dimension of $\strategy$} is $d$. The \emph{quantum value of the strategy $\strategy$ in the game $G$} is defined as
+\[
+	\eval(G,\strategy) = \sum_{(x,y) \in \X \times \Y} \mu(x,y) \,  \sum_{(a,b) \in \A \times \B} V(x,y,a,b) \, \bra{\psi} A_x(a) \otimes B_y(b) \ket{\psi}.
+\]
+\end{definition}
+
+\begin{definition}[Quantum value of a nonlocal game]
+Let $G = (\X \times \Y,\A \times \B,\mu,V)$ be a nonlocal game. The \emph{quantum value of $G$} is defined as
+\[
+	\eval(G) = \sup_{\strategy} \eval(G,\strategy)
+\]
+where the supremum is over the set of all quantum strategies for $G$.
+\end{definition}
+
+\begin{definition}[Entanglement requirements of a nonlocal game]
+Let $G = (\X \times \Y,\A \times \B,\mu,V)$ be a nonlocal game, and let $p \in [0,1]$. Define $\E(G,p)$ to denote the minimum integer $d \in \N$ such that there exists a $d$-dimensional quantum strategy $\strategy$ for $G$ such that $\eval(G,\strategy) \geq p$. If there is no such strategy, then we define $\E(G,p) = +\infty$.
+\end{definition}
+
+\begin{proposition}[Entanglement lower bound implies value upper bound]
+\label{prop:entanglement-lb-to-value}
+If $\E(G,p) = +\infty$, then $\eval(G) \leq p$.
+\end{proposition}
+\begin{proof}
+Suppose $\eval(G) > p$. Then there exists a $d$-dimensional strategy $\strategy$ for $G$ for some $d \in \N$ that achieves value $p$, which implies that $\E(G,p) \leq d$, a contradiction.
+\end{proof}
+

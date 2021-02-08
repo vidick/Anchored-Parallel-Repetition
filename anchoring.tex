@@ -1,0 +1,255 @@
+\documentclass[11pt]{article}
+
+\usepackage{fullpage}
+\usepackage{amsmath,amsfonts,amsthm,mathrsfs,xspace,hyperref,graphicx}
+\usepackage{endnotes}
+%\usepackage[dvipsnames]{xcolor}
+\usepackage{bm}
+%\usepackage{times}
+\usepackage{enumitem}
+\usepackage{amssymb,latexsym}
+\usepackage{relsize}
+%\usepackage{fourier}
+\usepackage{mathpazo}
+\usepackage{cleveref}
+\usepackage{stmaryrd}
+\usepackage{xcolor}
+
+\bibliographystyle{alpha}
+
+% Set up hyperlink colors.
+\definecolor{weborange}{rgb}{.8,.3,.3}
+\definecolor{webblue}{rgb}{0,0,.8}
+\definecolor{internallinkcolor}{rgb}{0,.5,0}
+\definecolor{externallinkcolor}{rgb}{0,0,.5}
+
+\definecolor{DarkBlue}{rgb}{0,0,0.8}  % For better printing.
+\definecolor{DarkOrange}{rgb}{0.8,0.4,0}  % For better printing.
+\def\mylinkcolor{DarkBlue}
+\def\mysubcolor{DarkOrange}
+
+\hypersetup{%pagebackref, 
+	colorlinks=true, urlcolor=\mylinkcolor,
+  linkcolor=\mylinkcolor, citecolor=\mylinkcolor}
+
+%%%%%%%%%%THEOREM ENVIRONMENTS%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{definition}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator*{\Ex}{\mathbb{E}}
+\newcommand{\ad}{\mathrm{ad}}
+
+
+\newcommand{\ket}[1]{{|#1\rangle}}
+\newcommand{\bra}[1]{{\langle#1|}}
+\newcommand{\bigket}[1]{{\left |#1 \right \rangle}}
+\newcommand{\bigbra}[1]{{\left \langle#1 \right|}}
+\newcommand{\ip}[2]{\langle #1 | #2 \rangle}
+\newcommand{\ketbra}[2]{|#1\rangle\! \langle #2|}
+\newcommand{\Tr}{\mbox{\rm Tr}}
+\newcommand{\Id}{\mathbb{I}}
+
+
+\newcommand{\states}{\mathrm{S}}
+\newcommand{\dens}{\mathrm{D}}
+\newcommand{\unitary}{\mathrm{U}}
+\newcommand{\linmap}{\mathrm{L}}
+\newcommand{\metalinmap}{\mathrm{T}}
+\newcommand{\isometry}{\mathrm{J}}
+
+
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\C}{\ensuremath{\mathbb{C}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+%\newcommand{\F}{\ensuremath{\mathbb{F}}}
+\newcommand{\K}{\ensuremath{\mathbb{K}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\E}{\mathcal{E}}
+
+\newcommand{\Hilb}{\mathcal{H}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Y}{\mathcal{Y}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\B}{\mathcal{B}}
+
+\newcommand{\D}{\mathrm{D}}
+\newcommand{\I}{\mathrm{I}}
+\newcommand{\F}{\mathrm{F}}
+
+\newcommand{\puretomixed}[1]{\llbracket #1 \rrbracket}
+
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\poly}{\mathrm{poly}}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+\newcommand{\conj}[1]{\overline{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\wt}[1]{\widetilde{#1}}
+\newcommand{\what}[1]{\hat{#1}}
+\newcommand{\eval}{\omega^*}
+\newcommand{\val}{\omega}
+
+\newcommand{\strategy}{\mathscr{S}}
+
+\renewcommand{\P}{\mathsf{P}}
+\newcommand{\channel}{\mathcal{C}}
+
+%\newcommand{\setft}[1]{\mathrm{#1}}
+%\newcommand{\density}[1]{\setft{D}\!\left(#1\right)}
+%\newcommand{\lin}[1]{\setft{L}\!\left(#1\right)}
+%\newcommand{\pos}[1]{\setft{Pos}\!\left(#1\right)}
+%\newcommand{\unitary}[1]{\setft{U}\!\left(#1\right)}
+%\newcommand{\bures}{\mathfrak{B}}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\Yvec}{\mathbf{Y}}
+\newcommand{\Xvec}{\mathbf{X}}
+\newcommand{\Avec}{\mathbf{A}}
+\newcommand{\Bvec}{\mathbf{B}}
+\newcommand{\Qvec}{\mathbf{Q}}
+\newcommand{\Rvec}{\mathbf{R}}
+\newcommand{\Dvec}{\mathbf{D}}
+\newcommand{\Dbar}{\overline{D}}
+\newcommand{\Cbar}{\overline{C}}
+\newcommand{\Sbar}{\overline{S}}
+
+
+\newcommand{\ba}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\bd}{\mathbf{d}}
+%\newcommand{\bm}{\mathbf{m}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bz}{\mathbf{z}}
+\newcommand{\br}{\mathbf{r}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\bZ}{\mathbf{Z}}
+\newcommand{\bR}{\mathbf{R}}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\bB}{\mathbf{B}}
+\newcommand{\bOmega}{{\boldsymbol{\Omega}}}
+\newcommand{\bomega}{{\boldsymbol{\omega}}}
+\newcommand{\bD}{\mathbf{D}}
+\newcommand{\bM}{\mathbf{M}}
+\newcommand{\bU}{\mathbf{U}}
+\newcommand{\bT}{\mathbf{T}}
+\newcommand{\bV}{\mathbf{V}}
+
+\newcommand{\mi}{{-i}}
+
+
+%\newcommand{\dummy}{{\mathsmaller{\mathsmaller{\square}}}}
+\newcommand{\dummy}{{\mathsmaller{\perp}}}
+
+\newcommand\dummyx{{\dummy\!/x}}
+\newcommand\dummyy{{\dummy\!/y}}
+
+\newcommand{\ac}{\mathrm{Z}}
+
+
+\newcommand{\xp}{{x,\dummy}}
+\newcommand{\py}{{\dummy, y}}
+\newcommand{\xy}{{x,y}}
+\newcommand{\pxy}{{\dummy\!/x,y}}
+\newcommand{\pxp}{{\dummy\!/x,\dummy}}
+
+\newcommand{\xip}{{x_i,\dummy}}
+\newcommand{\pyi}{{\dummy, y_i}}
+\newcommand{\pp}{{\dummy, \dummy}}
+\newcommand{\xiyi}{{x_i,y_i}}
+\newcommand{\pxiyi}{{\dummy\!/x_i,y_i}}
+\newcommand{\pxip}{{\dummy\!/x_i,\dummy}}
+
+%\newcommand{\ssp}{{\substack{\omega_\mi,z \\ \dummy}}}
+%\newcommand{\ssxx}{{\substack{\omega_\mi,z \\ x,x}}}
+%\newcommand{\sspx}{{\substack{\omega_\mi,z \\ \dummy,x}}}
+%\newcommand{\ssxp}{{\substack{\omega_\mi,z \\ x, \dummy}}}
+%\newcommand{\sspy}{{\substack{\omega_\mi,z \\ \dummy,y}}}
+%\newcommand{\sspp}{{\substack{\omega_\mi,z \\ \dummy,\dummy}}}
+%\newcommand{\ssxy}{{\substack{\omega_\mi,z \\ x,y}}}
+%\newcommand{\sspxy}{{\substack{\omega_\mi,z \\ \dummyx,y}}}
+%\newcommand{\sspxp}{{\substack{\omega_\mi,z \\ \dummyx,\dummy}}}
+%\newcommand{\sspxx}{{\substack{\omega_\mi,z \\ \dummyx,x}}}
+%
+%\newcommand{\ssxip}{{\substack{\omega_\mi,z \\ x_i, \dummy}}}
+%\newcommand{\sspyi}{{\substack{\omega_\mi,z \\ \dummy,y_i}}}
+%\newcommand{\ssxiyi}{{\substack{\omega_\mi,z \\ x_i,y_i}}}
+%\newcommand{\sspxiyi}{{\substack{\omega_\mi,z \\ \dummy\!/x_i,y_i}}}
+%\newcommand{\sspxip}{{\substack{\omega_\mi,z \\ \dummy\!/x_i,\dummy}}}
+
+\newcommand{\ssp}{{\br_\mi , \dummy}}
+\newcommand{\ssxx}{{\br_\mi , x,x}}
+\newcommand{\sspx}{{\br_\mi , \dummy,x}}
+\newcommand{\ssxp}{{\br_\mi , x, \dummy}}
+\newcommand{\sspy}{{\br_\mi , \dummy,y}}
+\newcommand{\sspp}{{\br_\mi , \dummy,\dummy}}
+\newcommand{\ssxy}{{\br_\mi , x,y}}
+\newcommand{\sspxy}{{\br_\mi , \dummyx,y}}
+\newcommand{\sspxp}{{\br_\mi , \dummyx,\dummy}}
+\newcommand{\sspxx}{{\br_\mi , \dummyx,x}}
+
+\newcommand{\ssxip}{{\br_\mi , \bx_i, \dummy}}
+\newcommand{\sspyi}{{\br_\mi , \dummy,\by_i}}
+\newcommand{\ssxiyi}{{\br_\mi , \bx_i,\by_i}}
+\newcommand{\sspxiyi}{{\br_\mi , \dummy\!/\bx_i,\by_i}}
+\newcommand{\sspxip}{{\br_\mi , \dummy\!/\bx_i,\dummy}}
+
+
+
+\newcommand{\Qsf}{\mathsf{Q}}
+\newcommand{\Ssf}{\mathsf{S}}
+\newcommand{\Rsf}{\mathsf{R}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{Anchored parallel repetition for nonlocal games}
+
+\author{Mohammad Bavarian \and
+Thomas Vidick \and
+Henry Yuen~\thanks{Columbia University. \texttt{henry.yuen@columbia.edu}.}}
+
+
+\date{}
+\maketitle
+
+
+%\tableofcontents
+
+%\newpage
+
+\input{intro}
+\input{prelim}
+\input{qpr3}
+
+\newpage
+\bibliography{anchor}
+
+
+
+
+\end{document}
