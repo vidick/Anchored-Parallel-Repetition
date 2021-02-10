@@ -312,15 +312,14 @@ For all $i \in [m]$, $\bomega_\mi$, $x \in \X$, and $y \in \Y$ define
  A_{\bomega_\mi, x}(\ba_C) = \Ex_{\bX | \bomega_\mi, x} A_{\bx}(\ba_C) \qquad \text{and} \qquad  B_{\bomega_\mi, y}(\bb_C) = \Ex_{\bY | \bomega_\mi, y} B_{\by}(\bb_C)
 \end{equation}
 where $\Ex_{\bX | \bomega_\mi, x}$ is shorthand for $\Ex_{\bX | \bOmega_\mi = \bomega_\mi, \bX_i = x}$ (and similarly for $\Ex_{\bY | \bomega_\mi, y}$).
-For all $x \in \X$, define
+Let $\X_{/\dummy} = \{ \dummyx,\; x\in \X\}$ be a disjoint copy of $\X$. Here, for each $x\in \X$, ``$\dummyx$'' is a new symbol that is used to distinguish elements in $\X$ from elements in $\X_{/\dummy}$. 
+For all $\dummyx \in \X_{/\perp}$ define
 \begin{equation}
 \label{eq:states-operators-3}
-	A_{\bomega_\mi,\dummyx}(\ba_C) = \eta \, A_{\bomega_\mi,\dummy}(\ba_C) + (1 - \eta) \, A_{\bomega_\mi,x}(\ba_C)~,
+	A_{\bomega_\mi,\dummyx}(\ba_C) = \eta \, A_{\bomega_\mi,\dummy}(\ba_C) + (1 - \eta) \, A_{\bomega_\mi,x}(\ba_C)\;.
 \end{equation}
-where we introduce a symbol ``$\dummyx$'' for every $x \in \X$ to indicate that in the $i$-th coordinate, the $i$-th question $\bX_i$ is set to $\dummy$ with probability $\eta$ and $x$ with probability $1 - \eta$. In the case that $x = \dummy$, then $\bX_i$ is set to $\dummy$ always.
 
-
-\paragraph{States.}  For all $i \in [n] \setminus C$, $\br_\mi = (\bomega_\mi,\ba_C,\bb_C)$ and $x \in \X$, for all $s \in \{x,\dummyx\}$\tnote{We should clarify what $\dummyx$ is. It's a variable that ranges over a disjoint copy of $\X$, right? Including $\dummy/\dummy$} \hnote{added explanation above}, and for all $y \in \Y$, define the (unnormalized) state
+\paragraph{States.}  For all $i \in [n] \setminus C$, $\br_\mi = (\bomega_\mi,\ba_C,\bb_C)$ and $x \in \X$, for all $s \in \{x,\dummyx\}$, and for all $y \in \Y$, define the (unnormalized) state
 \[
 	\ket{\Phi_{\br_\mi,s,y}} = A_{\bomega_\mi,s}(\ba_C)^{1/2} \otimes B_{\bomega_\mi,y}(\bb_C)^{1/2} \, \ket{\psi}~.
 \]
@@ -329,20 +328,22 @@ and define the normalization factor
 	\gamma_{\br_\mi,s,y} = \big \| \, \ket{\Phi_{\br_\mi,s,y}} \, \big \|~.
 \]
 
-\tnote{Are we going to use this equation and the next? If so I suggest to make them a claim, with proof. It's not obvious at first that the expectations are in the right place and one has to do the math} \hnote{added:} The following proposition relates the normalization factors $\gamma_{\br_\mi,s,y}$ in terms of the probability of obtaining answers $(\ba_C,\bb_C)$ in the strategy $\strategy^n$. 
+The following proposition expresses the normalization factors $\gamma_{\br_\mi,s,y}$ as a function of the probability of obtaining answers $(\ba_C,\bb_C)$ in the strategy $\strategy^n$. 
+
 \begin{proposition}
 \label{prop:gamma}
-When $s \in \X$, we have
-\[
-	\gamma_{\br_\mi,s,y} = \Big( \P_{\bA_C \bB_C | \bOmega_\mi = \bomega_\mi, \bX_i = s, \bY_i = y}(\ba_C,\bb_C) \Big)^{1/2}
-\]
-and when $s = \dummyx$ for some $x \in \X$, then 
-\[
+For all $s \in \X$, 
+\begin{equation}\label{eq:gamma-def-1}
+	\gamma_{\br_\mi,s,y} = \Big( \P_{\bA_C \bB_C | \bOmega_\mi = \bomega_\mi, \bX_i = s, \bY_i = y}(\ba_C,\bb_C) \Big)^{1/2}\;,
+\end{equation}
+and for all $s = \dummyx \in \X_{/\perp}$,
+\begin{equation}\label{eq:gamma-def-2}
 	\gamma_{\br_\mi,s,y} = \Big( \eta \, \P_{\bA_C \bB_C | \bOmega_\mi = \bomega_\mi, \bX_i = \dummy, \bY_i = y}(\ba_C,\bb_C) + (1 - \eta) \, \P_{\bA_C \bB_C | \bOmega_\mi = \bomega_\mi, \bX_i = x, \bY_i = y}(\ba_C,\bb_C)\Big)^{1/2}~.
-\]
+\end{equation}
 \end{proposition}
+
 \begin{proof}
-Suppose that $s \in \X$. Then expanding out the definition of $ A_{\bomega_\mi,s}(\ba_C)$ and $B_{\bomega_\mi,y}(\bb_C)$ we have
+Suppose that $s \in \X$. Expanding the definition of $ A_{\bomega_\mi,s}(\ba_C)$ and $B_{\bomega_\mi,y}(\bb_C)$,
 \begin{align*}
 	\gamma_{\br_\mi,s,y}^2 &= \bra{\psi} A_{\bomega_\mi,s}(\ba_C) \otimes B_{\bomega_\mi,y}(\bb_C) \, \ket{\psi} \\
 	&= \Ex_{\bX | \bomega_\mi, s} \, \Ex_{\bY | \bomega_\mi, y} \, \bra{\psi} A_\bx(\ba_C) \otimes B_\by(\bb_C) \, \ket{\psi} \\
@@ -351,11 +352,10 @@ Suppose that $s \in \X$. Then expanding out the definition of $ A_{\bomega_\mi,s
 	&= \P_{\bA_C \bB_C | \bOmega_\mi = \bomega_\mi, \bX_i = s,\bY_i = y}(\ba_C,\bb_C)~.
 \end{align*}
 In the second-to-last line, we used the fact that $\bX$ and $\bY$ are independent conditioned on $\bOmega_\mi$. 
-
 The calculation for when $s = \dummyx$ follows in nearly an identical manner.
 \end{proof}
 
-Finally, we let
+Let
 \begin{equation}\label{eq:def-psitt}
 	\ket{\wt{\Phi}_{\br_\mi,s,y}} = \gamma_{\br_\mi,s,y}^{-1} \, \ket{\Phi_{\br_\mi,s,y}}
 \end{equation}
@@ -444,79 +444,99 @@ Furthermore, by an averaging argument, there must exist a pair $(i,\br_\mi)$ suc
 \]
 Since $\strategy_{\br_\mi}$ is a $d$-dimensional strategy where $d = \E(G^n,p)$, this implies that $\E(G,1 - \eps) \leq d$, which concludes the proof of \Cref{thm:anchorpr_quantum}.
 
-\subsection{Proof of the Main Lemma (\Cref{lem:anchorpr_main_lemma})}
+\subsection{Proof of \Cref{lem:anchorpr_main_lemma}}
 \label{sec:main-lemma-proof}
 
-
-Define the POVM operators $\{\what{A}_{\br_\mi,x}(a) \}$ and $\{\what{B}_{\br_\mi, y}(b)\}$ as follows:
+Fix a subset $C \subseteq [n]$ and let $m=n-|C|$. Fix an $i\in [n]\backslash C$. For any $\br_\mi,x,y$ and $a,b$ define positive semidefinite operators
 \begin{align*}
-	\what{A}_{\br_\mi,x}(a) = \sum_{\ba | a, \ba_C} (A_{\bomega_\mi,x}(\ba_C) )^{-1/2} \cdot A_{\bomega_\mi,x}(\ba) \cdot (A_{\bomega_\mi,x}(\ba_C) )^{-1/2} \\
-	\what{B}_{\br_\mi, y}(b) = \sum_{\bb | b, \bb_C}  (B_{\bomega_\mi,y}(\bb_C) )^{-1/2} \cdot B_{\bomega_\mi,y}(\bb) \cdot (B_{\bomega_\mi,y}(\bb_C) )^{-1/2}
+	\what{A}_{\br_\mi,x}(a) = \sum_{\ba | a, \ba_C} (A_{\bomega_\mi,x}(\ba_C) )^{-1/2} \cdot A_{\bomega_\mi,x}(\ba) \cdot (A_{\bomega_\mi,x}(\ba_C) )^{-1/2} \;,\\
+	\what{B}_{\br_\mi, y}(b) = \sum_{\bb | b, \bb_C}  (B_{\bomega_\mi,y}(\bb_C) )^{-1/2} \cdot B_{\bomega_\mi,y}(\bb) \cdot (B_{\bomega_\mi,y}(\bb_C) )^{-1/2}\;,
 \end{align*}
-where $\ba | a, \ba_C$ (resp. $\bb | b, \bb_C$) denotes summing over tuples $\ba$ that are consistent with $\ba_C$ and $\ba_i = a$ (resp. $\bb$ that are consistent with $\bb_C$ and $\bb_i = b$). Note that the $\{\what{A}_{\br_\mi, x}(a) \}_{a}$ and $\{\what{B}_{\br_\mi,y}(b)\}_{b}$ are sets of positive semidefinite operators that sum to identity, so form valid POVMs. 
+where $\ba | a, \ba_C$ (resp. $\bb | b, \bb_C$) denotes summing over tuples $\ba$ that are consistent with $\ba_C$ and $\ba_i = a$ (resp. $\bb$ that are consistent with $\bb_C$ and $\bb_i = b$). For fixed $\br_\mi, x,y$ the collections $\{\what{A}_{\br_\mi, x}(a) \}_{a}$ and $\{\what{B}_{\br_\mi,y}(b)\}_{b}$ are valid POVMs. 
 
-The unitaries $U_{\br_\mi,x}$ and $V_{\br_\mi,y}$ are obtained from the following Lemma:
+The following lemma specifies the existence of unitaries $U_{\br_\mi,x}$ and $V_{\br_\mi,y}$ used to define the stategy $\strategy$. Recall the definition of the states $\ket{\wt{\Phi}_{\br_\mi,s,y}}$, for $s\in $ and $y\in \Y$, in~\eqref{eq:def-psitt}.
+	
+
 \begin{lemma}
 \label{lem:local_unitaries}
 	For every $C$, $i$, $\br_\mi$, $x$ and $y$, there exists unitaries $U_{\br_\mi,x}$ acting on $E_A$ and $V_{\br_\mi,y}$ acting on $E_B$ such that
 	$$
-		\Ex_I \,\, \Ex_{\bR_\mi | W_C} \,\, \Ex_{XY}  \Big \| (U_{\br_\mi,x} \otimes V_{\br_\mi,y}) \bigket{\wt{\Phi}_{\sspp}} - \bigket{\wt{\Phi}_{\ssxy}} \Big\| = O(\delta^{1/16}/\alpha^3)
+		\Ex_I \,\, \Ex_{\bR_\mi | W_C} \,\, \Ex_{XY}  \Big \| (U_{\br_\mi,x} \otimes V_{\br_\mi,y}) \bigket{\wt{\Phi}_{\sspp}} - \bigket{\wt{\Phi}_{\ssxy}} \Big\| = O(\delta^{1/16}/\alpha^3)\;,
 	$$
 	where $\Ex_I$ denotes the expectation over a uniformly random $i \in [n] \setminus C$, $\Ex_{\bR_\mi | W_C}$ denotes the expectation over $\br_\mi$ sampled from $\P_{\bR_\mi | W_C}$, and $\Ex_{XY}$ denotes the expectation over $(x,y)$ sampled from $\mu$. 
 \end{lemma}
-The proof of \Cref{lem:local_unitaries} is given in Section~\ref{sec:anchorpr_main_lemma}, and we assume it for now. Define
-\begin{equation}
-\label{eq:beta}
-\beta_{\br_\mi,x,y} = \left \| U_{\br_\mi,x} \otimes V_{\br_\mi,y} \ket{\wt{\Phi}_\sspp} - \ket{\wt{\Phi}_{\ssxy}} \right \| \;.
+
+The proof of \Cref{lem:local_unitaries} is given in Section~\ref{sec:anchorpr_main_lemma}. 
+%Thus after applying the unitaries in strategy $\strategy_{\br_\mi}$, the players' shared state is $\beta_{\br_\mi,x,y}$-close to the state $\ket{\wt{\Phi}_{\ssxy}}$. When the players measure this state using the POVMs $\{\what{A}_{\br_\mi,x}(a) \}$ and $\{\what{B}_{\br_\mi, y}(b)\}$, they obtain outcomes $(a,b)$ with probability
+%\begin{equation}
+%\label{eq:anchorpr_main-1}
+%	\Tr \left ( \what{A}_{\br_\mi, x}(a) \otimes \what{B}_{\br_\mi, y}(b) \,\,\, \Big( U_{\br_\mi,x} \otimes V_{\br_\mi,y} \Big) \wt{\Phi}_{\sspp} \Big( U_{\br_\mi,x} \otimes V_{\br_\mi,y} \Big)^\dagger \right )
+%\end{equation}
+%Suppose that the players measure the state $\ket{\wt{\Phi}_{\ssxy}}$ instead of the state $U_{\br_\mi,x} \otimes V_{\br_\mi,y} \ket{\wt{\Phi}_\sspp}$. 
+%The players obtain the outcomes $(a,b)$ with probability
+
+\begin{claim}\label{claim:main-1}\tnote{This was some kind of free-flowing discussion; I made it a claim}
+For all $\br_\mi, x,y$ and $a,b$,
+\begin{equation}\label{eq:anchorpr_main-2}
+\Tr \big ( \what{A}_{\br_\mi, x}(a) \otimes \what{B}_{\br_\mi, y}(b) \,\,\,\wt{\Phi}_{\ssxy} \big )  \,=\,\P_{\bA_i \bB_i | \br_\mi,x,y}(a,b)\;.
 \end{equation}
-Thus after applying the unitaries in strategy $\strategy_{\br_\mi}$, the players' shared state is $\beta_{\br_\mi,x,y}$-close to the state $\ket{\wt{\Phi}_{\ssxy}}$. When the players measure this state using the POVMs $\{\what{A}_{\br_\mi,x}(a) \}$ and $\{\what{B}_{\br_\mi, y}(b)\}$, they obtain outcomes $(a,b)$ with probability
-\begin{equation}
-\label{eq:anchorpr_main-1}
-	\Tr \left ( \what{A}_{\br_\mi, x}(a) \otimes \what{B}_{\br_\mi, y}(b) \,\,\, \Big( U_{\br_\mi,x} \otimes V_{\br_\mi,y} \Big) \wt{\Phi}_{\sspp} \Big( U_{\br_\mi,x} \otimes V_{\br_\mi,y} \Big)^\dagger \right )
-\end{equation}
-Suppose that the players measure the state $\ket{\wt{\Phi}_{\ssxy}}$ instead of the state $U_{\br_\mi,x} \otimes V_{\br_\mi,y} \ket{\wt{\Phi}_\sspp}$. The players obtain the outcomes $(a,b)$ with probability
-\begin{align}
-	&\Tr \left ( \what{A}_{\br_\mi, x}(a) \otimes \what{B}_{\br_\mi, y}(b) \,\,\,\wt{\Phi}_{\ssxy} \right ) \label{eq:anchorpr_main-2} \\
-	\intertext{which, by the definition of $\wt{\Phi}_{\ssxy}$, can be expanded as}
-	&= \gamma_\ssxy^{-2} \cdot \sum_{\substack{\ba | a, \ba_C \\ \bb | b, \bb_C}}  \Tr \left ( A_{\bomega_\mi,x}(\ba) \otimes B_{\bomega_\mi,y}(\bb) \,\, \ketbra{\psi}{\psi} \right )~. \notag \\
-	\intertext{By definition of $\gamma_\ssxy$, we have}
-	&= \P_{\bA_C \bB_C|\bomega_\mi, x, y}(\ba_C,\bb_C)^{-1} \cdot \sum_{\substack{\ba | a, \ba_C \\ \bb | b, \bb_C}}  \Tr \left ( A_{\bomega_\mi,x}(\ba) \otimes B_{\bomega_\mi,y}(\bb) \,\, \ketbra{\psi}{\psi} \right )~. \notag \\
-	\intertext{By definition of $A_{\bomega_\mi,x}(\ba)$, $B_{\bomega_\mi,y}(\bb)$, this is equal to}
+\end{claim}
+
+\begin{proof}
+By definition of $\wt{\Phi}_{\ssxy}$ the left-hand side of~\eqref{eq:anchorpr_main-2} can be expanded as
+\begin{align*}
+\Tr \big ( \what{A}_{\br_\mi, x}(a) \otimes \what{B}_{\br_\mi, y}(b) \,\,\,\wt{\Phi}_{\ssxy} \big )	&= \gamma_\ssxy^{-2} \cdot \sum_{\substack{\ba | a, \ba_C \\ \bb | b, \bb_C}}  \Tr \left ( A_{\bomega_\mi,x}(\ba) \otimes B_{\bomega_\mi,y}(\bb) \,\, \ketbra{\psi}{\psi} \right ) \notag \\
+	&= \P_{\bA_C \bB_C|\bomega_\mi, x, y}(\ba_C,\bb_C)^{-1} \cdot \sum_{\substack{\ba | a, \ba_C \\ \bb | b, \bb_C}}  \Tr \left ( A_{\bomega_\mi,x}(\ba) \otimes B_{\bomega_\mi,y}(\bb) \,\, \ketbra{\psi}{\psi} \right ) \notag \\
 	&= 	\P_{\bA_C \bB_C|\bomega_\mi, x,y}(\ba_C,\bb_C)^{-1} \cdot \Ex_{\substack{\bX| \bomega_\mi, x \\ \bY| \bomega_\mi ,y}} \sum_{\substack{\ba | a, \ba_C \\ \bb | b, \bb_C}}  \Tr \left ( A_{\bx}(\ba) \otimes B_{\by}(\bb) \, \ketbra{\psi}{\psi} \right )\notag \\
-	\intertext{Now, using the fact that $\bX, \bY$ are independent conditioned on $\bomega_\mi$, $\bX_i = x$ and $\bY_i = y$, this is equal to}
 	&= 	\P_{\bA_C \bB_C|\bomega_\mi, x, y}(\ba_C,\bb_C)^{-1} \cdot \Ex_{\bX \bY | \bomega_\mi ,x, y} \sum_{\substack{\ba | a, \ba_C \\ \bb | b, \bb_C}}  \Tr \left ( A_{\bx}(\ba) \otimes B_{\by}(\bb) \, \ketbra{\psi}{\psi} \right ) \notag \\	
 	&= \P_{\bA_C \bB_C|\bomega_\mi ,x,y}(\ba_C,\bb_C)^{-1} \cdot \P_{\bA_C\bB_C\bA_i \bB_i | \bomega_\mi,x,y}(\ba_C,\bb_C,a,b) \notag \\
-	&= \P_{\bA_i \bB_i | \br_\mi,x,y}(a,b)\;.\notag
-\end{align}
-Let $\mathcal{C}_{\br_\mi,x,y}(\cdot)$ denote the completely positive trace preserving (CPTP) map that measures an input state $\rho$ using the POVM $\{\what{A}_{\br_\mi,x}(a) \otimes \what{B}_{\br_\mi,y}(b) \}_{a,b}$, and outputs $(a,b) \in \A \times \B$. Thus, for fixed $\br_\mi, x,y$, we can express the total variation distance between the probability distributions $\Qsf_{\bA_i \bB_i | \br_\mi, x,y}$ (which is induced by~\eqref{eq:anchorpr_main-1})  and $\P_{\bA_i \bB_i | \br_\mi,x,y}$  (which is induced by~\eqref{eq:anchorpr_main-2}) as 
-\begin{align*}
-	\left \| \Qsf_{\bA_i \bB_i | \br_\mi, x,y} - \P_{\bA_i \bB_i | \br_\mi,x,y}\right \| &= \left \| \mathcal{C}_{\br_\mi,x,y} \Big ( \wt{\Phi}_{\br_\mi,x,y} \Big) - \mathcal{C}_{\br_\mi,x,y} \Big ( \Big (   U_{\br_\mi,x} \otimes V_{\br_\mi,y} \Big) \Big [\wt{\Phi}_{\sspp} \Big ]\Big) \right \|_1 \\
-	&\leq  \left \|  \wt{\Phi}_{\br_\mi,x,y}  -  \Big (   U_{\br_\mi,x} \otimes V_{\br_\mi,y} \Big) \Big [\wt{\Phi}_{\sspp} \Big ] \right \|_1 \\
-	&\leq \sqrt{2} \left \| \bigket{\wt{\Phi}_{\br_\mi,x,y}}  -  \Big (   U_{\br_\mi,x} \otimes V_{\br_\mi,y} \Big) \bigket{\wt{\Phi}_{\sspp}} \right \| \\
-	&= \sqrt{2} \,\, \beta_{\br_\mi,x,y}~.
+	&= \P_{\bA_i \bB_i | \br_\mi,x,y}(a,b)\;,\notag
 \end{align*}
-In the first line, we used the notation $X[\rho] = X \rho X^\dagger$. In the second line, we used that applying a CPTP map can only decrease the trace norm. In the third line, we used the fact that for two pure states $\ket{\psi}$ and $\ket{\phi}$, $ \| \psi - \phi \|_1 \leq \sqrt{2} \|\, \ket{\psi} - \ket{\phi} \|$. 
-%
-%Using the fact that for two pure states $\ket{\psi}$ and $\ket{\phi}$, $ \| \psi - \phi \|_1 \leq \sqrt{2} \|\, \ket{\psi} - \ket{\phi} \|$, we have that the distribution $\Qsf_{\bA_i \bB_i | \br_\mi, x,y}$ (which is induced by~\eqref{eq:anchorpr_main-1}) is $\sqrt{2}\beta_{\br_\mi,x,y}$-close to $\P_{\bA_i \bB_i | \br_\mi,x,y}(a,b)$ (which is induced by~\eqref{eq:anchorpr_main-2}). 
+where the second line is by~\eqref{eq:gamma-def-1}, the third uses the definition  of $A_{\bomega_\mi,x}(\ba)$, $B_{\bomega_\mi,y}(\bb)$ in~\eqref{eq:states-operators-2}, and the fourth uses that by Claim~\ref{clm:dependency-breaking-1}\tnote{added reference to claim, and to definitions; correct? It would really help if you would do such things, rather than stating facts shown 5 pages earlier without explaining where the fact comes from} $\bX, \bY$ are independent conditioned on $\bomega_\mi$, $\bX_i = x$ and $\bY_i = y$.
+\end{proof}
+
+%Let $\mathcal{C}_{\br_\mi,x,y}(\cdot)$ denote the completely positive trace preserving (CPTP) map that measures an input state $\rho$ using the POVM $\{\what{A}_{\br_\mi,x}(a) \otimes \what{B}_{\br_\mi,y}(b) \}_{a,b}$, and outputs $(a,b) \in \A \times \B$. Thus, for fixed $\br_\mi, x,y$, 
+\begin{claim}\label{claim:main-2}\tnote{same comment}
+The following holds:
+\begin{equation}\label{eq:main-2-0}
+\Ex_I \big\| \P_{\bR_\mi |W_C} \cdot \P_{\bX_i \bY_i} \cdot \Qsf_{\bA_i \bB_i |\bR_\mi \bX_i \bY_i } 
+	-  \P_{\bR_\mi |W_C} \cdot \P_{\bX_i \bY_i} \cdot \P_{\bA_i \bB_i | \bR_\mi \bX_i \bY_i} \big \|  
+\,=\,O(\delta^{1/16}/\alpha^3)\;.
+\end{equation}
+\end{claim}
+
+\begin{proof}
+Fix $\br_\mi, x,y$. We bound the total variation distance
+\begin{align}
+	\big \| \Qsf_{\bA_i \bB_i | \br_\mi, x,y} - \P_{\bA_i \bB_i | \br_\mi,x,y}\big \|
+	&\leq  \big \|  \big (   U_{\br_\mi,x} \otimes V_{\br_\mi,y} \big) \wt{\Phi}_{\sspp} \big (   U_{\br_\mi,x} \otimes V_{\br_\mi,y} \big)^\dagger -  \wt{\Phi}_{\br_\mi,x,y}   \big \|_1 \notag\\
+	&\leq \sqrt{2} \,\big\| U_{\br_\mi,x} \otimes V_{\br_\mi,y} \ket{\wt{\Phi}_\sspp} - \ket{\wt{\Phi}_{\ssxy}} \big\|\;.\label{eq:main-2-1}
+\end{align}
+Here the first line follows by contractivity of the trace distance, since using~\eqref{eq:anchorpr_main-2} for $P$ and the definition for $Q$
+each distribution on the left-hand side is obtained by measuring the corresponding state on the right-hand side using the POVM $\{\what{A}_{\br_\mi, x}(a) \otimes \what{B}_{\br_\mi, y}(b)\}_{a,b}$. The second line follows from the fact that for  pure states $\ket{\psi}$ and $\ket{\phi}$, $ \| \psi - \phi \|_1 \leq \sqrt{2} \|\, \ket{\psi} - \ket{\phi} \|$.
 Thus
 \begin{align*}
-	&\left \| \P_I \cdot \P_{\bR_\mi |W_C} \cdot \P_{\bX_i \bY_i} \cdot \Qsf_{\bA_i \bB_i |\bR_\mi \bX_i \bY_i } 
-	- \P_I \cdot \P_{\bR_\mi |W_C} \cdot \P_{\bX_i \bY_i} \cdot \P_{\bA_i \bB_i | \bR_\mi \bX_i \bY_i} \right \|  \\
-	&= \Ex_I \, \, \Ex_{\bR_\mi |W_C} \,\, \Ex_{\bX_i \bY_i} \,\, \left \| \Qsf_{\bA_i \bB_i |\br_\mi \bx_i \by_i} - \P_{\bA_i \bB_i | \br_\mi \bx_i \by_i} \right \|    \\
-	&\leq \sqrt{2} \, \Ex_I \, \, \Ex_{\bR_\mi |W_C} \,\, \Ex_{\bX_i \bY_i} \beta_{\br_\mi,\bx_i,\by_i} \\
+\Ex_I \,\, \big\| \P_{\bR_\mi |W_C} \cdot \P_{\bX_i \bY_i} \cdot \Qsf_{\bA_i \bB_i |\bR_\mi \bX_i \bY_i } 
+	&-  \P_{\bR_\mi |W_C} \cdot \P_{\bX_i \bY_i} \cdot \P_{\bA_i \bB_i | \bR_\mi \bX_i \bY_i} \big \|  \\
+	&= \Ex_I \, \, \Ex_{\bR_\mi |W_C} \,\, \Ex_{\bX_i \bY_i} \,\, \big \| \Qsf_{\bA_i \bB_i |\br_\mi \bx_i \by_i} - \P_{\bA_i \bB_i | \br_\mi \bx_i \by_i} \big \|    \\
+	&\leq \sqrt{2} \, \Ex_I \, \, \Ex_{\bR_\mi |W_C} \,\, \Ex_{\bX_i \bY_i} \big\| U_{\br_\mi,x} \otimes V_{\br_\mi,y} \ket{\wt{\Phi}_\sspp} - \ket{\wt{\Phi}_{\ssxy}} \big\|\\
 %	&= \sqrt{2} \cdot \sqrt{\Ex_I \, \, \Ex_{\bR_\mi |W_C} \,\, \Ex_{\bX_i \bY_i} \beta_{\br_\mi,\bx_i,\by_i}^2} & \text{(Jensen's inequality)}\\
-	&\leq O(\delta^{1/16}/\alpha^3)
+	&\leq O(\delta^{1/16}/\alpha^3)\;,
 \end{align*}
-where the last inequality follows from \Cref{lem:local_unitaries}. Item 2 of \Cref{lem:classical_skew} implies that 
+where the first inequality is by~\eqref{eq:main-2-1} and the last inequality follows from \Cref{lem:local_unitaries}.
+\end{proof}
+
+
+ Item 2 of \Cref{lem:classical_skew} states that 
 \[
-\left \| \P_I \cdot \P_{\bR_\mi |W_C} \cdot \P_{\bX_i \bY_i} - \P_I \cdot \P_{\bR_\mi \bX_i \bY_i | W_C} \right \| \leq \sqrt{\delta}~.
+\Ex_I \left \| \P_{\bR_\mi |W_C} \cdot \P_{\bX_i \bY_i} - \P_{\bR_\mi \bX_i \bY_i | W_C} \right \| \leq \sqrt{\delta}~.
 \] 
-Thus, using the triangle inequality for total variation distance, we get that
+Starting from~\eqref{eq:main-2-0} and using the preceding inequality together with Lemma~\ref{lem:trivial}\tnote{you had written ``triangle inequality'', but it's more the lemma, no?} we get
 \[
-\left \| \P_I \cdot \P_{\bR_\mi |W_C} \cdot \P_{\bX_i \bY_i} \cdot \Qsf_{\bA_i \bB_i |\bR_\mi \bX_i \bY_i } 
-	- \P_I \cdot \P_{\bR_\mi \bX_i \bY_i \bA_i \bB_i |W_C}  \right \| \leq O(\delta^{1/16}/\alpha^3)~.
+\Ex_I \left \|  \P_{\bR_\mi |W_C} \cdot \P_{\bX_i \bY_i} \cdot \Qsf_{\bA_i \bB_i |\bR_\mi \bX_i \bY_i } 
+	-  \P_{\bR_\mi \bX_i \bY_i \bA_i \bB_i |W_C}  \right \| \,=\, O\big(\delta^{1/16}/\alpha^3\big)\;.
 \]
-which concludes the proof of \Cref{lem:anchorpr_main_lemma}.
+This concludes the proof of \Cref{lem:anchorpr_main_lemma}.
 
 \subsection{Proof of \Cref{lem:local_unitaries}}
 \label{sec:anchorpr_main_lemma}
