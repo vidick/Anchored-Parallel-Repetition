@@ -123,12 +123,11 @@ Finally, define random variables $\bA = (\bA_i)_{i \in [n]}$ and $\bB = (\bB_i)_
 \[
 	\P_{\bA \bB | \bX = \bx, \bY = \by}(\ba,\bb) = \bra{\psi} A_\bx(\ba) \otimes B_\by(\bb) \ket{\psi}
 \]
-for all $\ba = (\ba_1,\ldots,\ba_n) \in \A^n$ and $\bb = (\bb_1,\ldots,\bb_n) \in \B^n$. $\bA$ and $\bB$ are jointly distributed as answers produced by players using strategy $\strategy^n$\tnote{Earlier this is called $\strategy^n$. Many occurrences, I wasn't sure how you want to change it} \hnote{ah, should be $\strategy^n$ throughout. changed} when their question pair for the $i$-th game is $(\bx_i,\by_i)$. 
+for all $\ba = (\ba_1,\ldots,\ba_n) \in \A^n$ and $\bb = (\bb_1,\ldots,\bb_n) \in \B^n$. $\bA$ and $\bB$ are jointly distributed as answers produced by players using strategy $\strategy^n$ when their question pair for the $i$-th game is $(\bx_i,\by_i)$. 
 Since conditioned on $\bX, \bY$, $\bA$ and $\bB$ are independent of $\bD,\bM$ we have that the marginal distribution of $\bX \bY \bA \bB$ is
 	\[
 		\P(\bx,\by,\ba,\bb) = \Big ( \prod_{i=1}^n \mu(\bx_i,\by_i) \Big) \cdot \bra{\psi} A_\bx(\ba) \otimes B_\by(\bb) \ket{\psi}\;,
 	\]
-	\tnote{Are you using both notation, $A_x^a$ and $A_x(a)$, or is the above a typo?} \hnote{changed to be consistent.}
 	which matches the joint distribution of questions and answers in the repeated game $G^n$ when the players use the strategy $\strategy^n$.
 
 %
@@ -183,24 +182,23 @@ Define $\bOmega = (\bOmega_i)_{i \in [n] \setminus C} \cup (\bX_C,\bY_C)$. We de
 % 
 \subsubsection{Individual coordinates are relatively unaffected by conditioning} 
 
-For $C\subseteq [n]$ such that $\P(W_C) > 0$, define \tnote{what is $m$}\tnote{we assume $W_C$ has positive probability}\hnote{added clarification}
+Let $C\subseteq [n]$ be a fixed subset of coordinates such that $\P(W_C) > 0$, and let $m=n-C$. For convenience, up to relabeling we generally assume that $C$ contains the last $n-m$ coordinates $C=\{m+1,\ldots,n\}$. Let
 \begin{equation}
 \label{eq:delta}
 	\delta = \frac{1}{m} \left ( \log \frac{1}{\P(W_C)} + |C| \log |\A| |\B| \right)\;.
 \end{equation}
-where $m = n - |C|$. 
 
-\tnote{The next paragraph is very imprecise and false. Could we remove it?} \hnote{I wanted to add some intuitive explanation of what the next Lemma is trying to say. what part is false? The $2^{-m}$?}
+\tnote{The next paragraph is very imprecise and false. Could we remove it?} \hnote{I wanted to add some intuitive explanation of what the next Lemma is trying to say. what part is false? The $2^{-m}$?}\tnote{Yes. The main problem though is that I can't understand many words. What does it mean to be ``insensitive''? To ``augment'' a distribution with an ``index''? An ``instantiation'' of a variable? Generally I find such ``intuitive'' explanations good for you maybe, but here I find it much easier to read the statement of the lemma and think what it means rather than parse the vague explanation}
 The following lemma shows that if the event $W_C$ occurs with probability significantly larger than $2^{-m}$ then conditioning on $W_C$ does not significantly affect the distribution of the inputs $(\bX_i, \bY_i)$ in a randomly chosen coordinate $i \in [n] \setminus C$, and furthermore the distribution of the the dependency-breaking variable $\bR_\mi$ is insensitive to the questions $(\bX_i,\bY_i)$. In the Lemma, we augment the probability distribution $\P$ with an index $I$ that is chosen from $[n] \setminus C$ uniformly at random, and we let $i$ denote the instantiation of the variable $I$.
 
 \begin{lemma}
 \label{lem:classical_skew}
-The following hold: \tnote{The notation with $I$ and $i$ is bad. Could we write $\frac{1}{m}\sum_i$ as in the proof? Also, the proof seems to give bounds on a random $i$ from $1$ to $m$. Is this some kind of bijection with $[n]\backslash C$?} \hnote{Re: $I$ vs $i$; this is to be consistent with how we treat all the other random variables $X,Y, \bOmega$ versus their instantiations $x,y,\bomega$, etc. We could switch to $\frac{1}{m} \sum_{i \in [n] \setminus C}$ everywhere; the rest of the proofs use $\Ex_I$ and $\P_I$ to save space and be consistent. Doesn't matter to me as long as we're consistent.}
+The following inequalities hold. \tnote{The notation with $I$ and $i$ is bad. Could we write $\frac{1}{m}\sum_i$ as in the proof? Also, the proof seems to give bounds on a random $i$ from $1$ to $m$. Is this some kind of bijection with $[n]\backslash C$?} \hnote{Re: $I$ vs $i$; this is to be consistent with how we treat all the other random variables $X,Y, \bOmega$ versus their instantiations $x,y,\bomega$, etc. We could switch to $\frac{1}{m} \sum_{i \in [n] \setminus C}$ everywhere; the rest of the proofs use $\Ex_I$ and $\P_I$ to save space and be consistent. Doesn't matter to me as long as we're consistent.}\tnote{Ok so here I put the sums. Earlier I also wrote the convention that $[n]\backslash C = \{1,\ldots,m\}$}
 \begin{enumerate}
-	\item $\| \P_I \P_{\bOmega_i \bX_i \bY_i | W_C} - \P_I \P_{\bOmega_i \bX_i \bY_i} \| \leq \sqrt{\delta}$
-	\item $\| \P_I  \P_{\bR \bX_i \bY_i | W_C} - \P_I \P_{\bR |W_C} \P_{\bX_i \bY_i | \bOmega_i } \| \leq \sqrt{\delta}$
-	\item $\| \P_I \P_{\bOmega_i |W_C} \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_I \P_{\bOmega_i | W_C} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \| \leq O(\sqrt{\delta}/\alpha^2)$
-	\item $\| \P_I \P_{\bX_i \bY_i}  \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_I \P_{\bX_i \bY_i}  \P_{\bR_\mi | \bX_i, \bY_i, W_C} \| \leq O(\sqrt{\delta}/\alpha^2)$
+	\item $\frac{1}{m}\sum_{i=1}^m \| \P_{\bOmega_i \bX_i \bY_i | W_C} -  \P_{\bOmega_i \bX_i \bY_i} \| \leq \sqrt{\delta}$.
+	\item $\frac{1}{m}\sum_{i=1}^m\|  \P_{\bR \bX_i \bY_i | W_C} -  \P_{\bR |W_C} \P_{\bX_i \bY_i | \bOmega_i } \| \leq \sqrt{\delta}$.
+	\item $\frac{1}{m}\sum_{i=1}^m\| \P_{\bOmega_i |W_C} \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} -\P_{\bOmega_i | W_C} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \| \leq O(\sqrt{\delta}/\alpha^2)$.
+	\item $\frac{1}{m}\sum_{i=1}^m\|  \P_{\bX_i \bY_i}  \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} -  \P_{\bX_i \bY_i}  \P_{\bR_\mi | \bX_i, \bY_i, W_C} \| \leq O(\sqrt{\delta}/\alpha^2)$.
 %	\item $\left \| \P_I \P_{\bX_i \bY_i} \P_{\bR_\mi | \bX_i \bY_i W_C} - \P_I \P_{\bX_i \bY_i \bR_\mi | W_C} \right \| \leq \sqrt{\delta}$
 \end{enumerate}
 \end{lemma}
@@ -224,7 +222,7 @@ Let $T$, $V$ be random variables and let $\bU = (\bU_1,\ldots,\bU_m)$ be a vecto
 where $\mathcal{V}^* = \{ v : \P_{V|W}(v) > 0 \}$. 
 \end{corollary}
 
-\begin{proof}[Proof of \Cref{lem:classical_skew}]\tnote{This proof is very hard to read. I added some clarifications; see a couple remaining questions}
+\begin{proof}[Proof of \Cref{lem:classical_skew}]
 \begin{enumerate}
 \item For $i\in [n]\backslash C$ let $\bU_i$ denote the tuple $(\bOmega_i,\bX_i,\bY_i)$, and let $W$ denote the event $W_C$. Note that all of the $\bU_i$ are independent of each other by construction, and thus applying \Cref{lem:hol} we get
 \[
@@ -236,7 +234,7 @@ Dividing by $m$ on both sides and using Jensen's inequality, we get
 \]
 which by definition of $\delta$ in~\eqref{eq:delta} is at most $\sqrt{\delta}$. %We conclude by observe that $\| \P_I \P_{\bOmega_i \bX_i \bY_i} - \P_I \P_{\bOmega_i \bX_i \bY_i | W_C} \| = \frac{1}{m} \sum_{i \in [n] \setminus C} \, \Big \| \P_{\bOmega_i \bX_i \bY_i} - \P_{\bOmega_i \bX_i \bY_i | W_C} \Big \|$.
 
-\item Let $T$ denote the random variable $\bOmega$, let $\bU_i$ denote the pair $(\bX_i,\bY_i)$, and let $V$ denote the pair $(\bA_C,\bB_C)$. Since $\bU_1,\ldots,\bU_m$ are independent, even conditioned on $\bOmega$ which is a product event \hnote{do you mean random variable with product distribution, not event?}, we can apply 
+\item Let $T$ denote the random variable $\bOmega$, let $\bU_i$ denote the pair $(\bX_i,\bY_i)$, and let $V$ denote the pair $(\bA_C,\bB_C)$. Since $\bU_1,\ldots,\bU_m$ are independent, even conditioned on $\bOmega$ which has a product distribution, we can apply 
 \Cref{cor:hol} and get
 \begin{equation}
 \label{eq:classical-skew-1}
@@ -249,12 +247,17 @@ where we used the fact that the support of $V$ has size at most $(|\A| \cdot |\B
 \label{eq:classical-skew-2}
 \frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bOmega_i |W_C} \P_{\bX_i \bY_i | \bOmega_i W_C} \P_{\bR_\mi | \bOmega_i \bX_i \bY_i W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \| \leq \sqrt{\delta}\;.
 \end{equation}
-We note that $\P_{\bR_\mi | \bOmega_i \bX_i \bY_i W_C} = \P_{\bR_\mi |\bX_i \bY_i W_C}$; in other words, $\bR_\mi$ is independent of $\bOmega_i$, conditioned on $\bX_i,\bY_i,W_C$. This is because $\P(W_C | \bR_\mi \bOmega_i \bX_i \bY_i) = \P(W_C | \bR_\mi \bX_i \bY_i)$ and $\P(W_C | \bOmega_i \bX_i \bY_i) = \P(W_C | \bX_i \bY_i)$, which in turn follow from the fact that the distribution of $(\bA_C,\bB_C)$, conditioned on $(\bX,\bY)$, does not depend on $\bOmega$. \tnote{I don't understand this justification} \hnote{Updated.}
+We note that $\P_{\bR_\mi | \bOmega_i \bX_i \bY_i W_C} = \P_{\bR_\mi |\bX_i \bY_i W_C}$. This follows from Bayes' rule and the observation that 
+\[\P(W_C | \bR_\mi \bOmega_i \bX_i \bY_i) = \P(W_C | \bR_\mi \bX_i \bY_i)\qquad\text{and}\qquad \P(W_C | \bOmega_i \bX_i \bY_i) = \P(W_C | \bX_i \bY_i)\;,\] which in turn follow from the fact that the distribution of $(\bA_C,\bB_C)$, conditioned on $(\bX,\bY)$, does not depend on $\bOmega$. \tnote{Sorry I'm still missing it. I seem to need that $\P(\bR_\mi |\bOmega_i \bX_i \bY_i) = \P(\bR_\mi | \bX_i \bY_i)$. I think this is true but it should be said, no?}
 
-Item 1 of the Lemma, combined with \Cref{lem:trivial}, implies that $\frac{1}{m} \sum_{i \in [n] \setminus C} \| \P_{\bOmega_i | W_C} - \P_{\bOmega_i}  \| \leq \sqrt{\delta}$. Using \Cref{lem:trivial} again, we get that $\frac{1}{m} \sum_{i \in [n] \setminus C} \| \P_{\bOmega_i } \P_{\bX_i \bY_i | \bOmega_i} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \| \leq \sqrt{\delta}$ and thus combined with Item 1 and the triangle inequality we have $\frac{1}{m} \sum_{i \in [n] \setminus C} \| \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \| \leq 2\sqrt{\delta}$. \hnote{spelled out the derivation more}
+Item 1 of the Lemma, combined with \Cref{lem:trivial}\tnote{What does the lemma have to do with it? Are you not just marginalizing XY? So this is data processing?}, implies that 
+\begin{equation}\label{eq:classical-skew-2bb}
+\frac{1}{m} \sum_{i \in [n] \setminus C} \| \P_{\bOmega_i | W_C} - \P_{\bOmega_i}  \| \leq \sqrt{\delta}\;.
+\end{equation}
+Using \Cref{lem:trivial} again, we get that $\frac{1}{m} \sum_{i \in [n] \setminus C} \| \P_{\bOmega_i } \P_{\bX_i \bY_i | \bOmega_i} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \| \leq \sqrt{\delta}$ and thus combined with Item 1 and the triangle inequality we have $\frac{1}{m} \sum_{i \in [n] \setminus C} \| \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \| \leq 2\sqrt{\delta}$. 
 %Next we use Item 1 of the Lemma twice\tnote{No, it doesn't apply. I think you're using item 1 once, and Lemma~\ref{lem:hol} for the $\Omega_i$. Note that you use this again later, so it could be stated separately} 
 % to get $\frac{1}{m} \sum_{i \in [n] \setminus C} \| \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \| \leq 2\sqrt{\delta}$. 
-\Cref{lem:trivial} then implies that~\eqref{eq:classical-skew-2} differs at most $2\sqrt{\delta}$ from
+\Cref{lem:trivial} then implies that~\eqref{eq:classical-skew-2} is within at most $2\sqrt{\delta}$ of
 \begin{equation}
 \label{eq:classical-skew-2b}
 \frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bOmega_i |W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi | \bX_i \bY_i W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \|
@@ -271,15 +274,15 @@ which establishes the third item.
 \frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bOmega_i |W_C}\P_{\bX_i \bY_i | \bOmega_i}  \P_{\bR_\mi | \bX_i, \bY_i, W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \| \leq O(\sqrt{\delta})~, \text{ and} \\
 \frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bOmega_i |W_C}\P_{\bX_i \bY_i | \bOmega_i}  \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \| \leq O \Big( \frac{\sqrt{\delta}}{\alpha^2} \Big)~.
 \end{gather*}
-Using the triangle inequality with these two inequalities we get\tnote{triangle inequality: what are the two terms?} \hnote{added}
+Using the triangle inequality with the two preceding inequalities we get
 \[
 \frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bOmega_i |W_C}\P_{\bX_i \bY_i | \bOmega_i}  \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi | \bX_i \bY_i  W_C}  \Big \| \leq O \Big( \frac{\sqrt{\delta}}{\alpha^2} \Big)~.
 \]
-Using the fact that $\frac{1}{m} \sum_{i \in [n] \setminus C} \| \P_{\bOmega_i | W_C} - \P_{\bOmega_i} \| \leq \sqrt{\delta}$\tnote{Again, I don't think this follows from the first item} \hnote{this was argued previously} combined with \Cref{lem:trivial} and the triangle inequality we get
+Using~\eqref{eq:classical-skew-2bb}\tnote{Again, I don't think this follows from the first item} \hnote{this was argued previously}\tnote{yes but come on, do we want the proof to be readable or not? It involves 40 inequalities; how much does it cost to actually introduce a reference? I did this} combined with \Cref{lem:trivial} and the triangle inequality we get
 \[
 \frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bOmega_i |W_C}\P_{\bX_i \bY_i | \bOmega_i}  \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_{\bOmega_i} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi | \bX_i \bY_i  W_C}  \Big \| \leq O \Big( \frac{\sqrt{\delta}}{\alpha^2} \Big)~.
 \]
-Marginalizing over the random variable $\bOmega_i$, we get\tnote{This probably needs one more step} \hnote{added one more step}
+Marginalizing over the random variable $\bOmega_i$, we get
 \[
 \frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bX_i \bY_i}  \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_{\bX_i \bY_i} \P_{\bR_\mi | \bX_i \bY_i  W_C}  \Big \| \leq O \Big( \frac{\sqrt{\delta}}{\alpha^2} \Big)~,
 \]
