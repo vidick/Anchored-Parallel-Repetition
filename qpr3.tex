@@ -27,7 +27,7 @@ Let $G$ be an $\alpha$-anchored game satisfying $\eval(G) < 1-\eps$. Then
 	$$ \eval(G^n)\leq \frac{4}{\eps} \, \exp \Big ( - \frac{c \cdot \alpha^{48} \cdot \eps^{16} \cdot n}{s} \Big)~.$$
 \end{corollary}
 \begin{proof}
-	\tnote{Removed; you did not actually use it. Remove the proposition? ``This follows from \Cref{prop:entanglement-lb-to-value}.''} Suppose that $\eval(G^n)$ is larger than 
+	Suppose that $\eval(G^n)$ is larger than 
 	\[p = \frac{4}{\eps} \, \exp \Big ( - \frac{c \cdot \alpha^{48} \cdot \eps^{16} \cdot n}{s} \Big)\;.\]
 	Then $\E(G^n,p) < +\infty$, which by Theorem~\ref{thm:anchorpr_quantum} and the choice of $p$ implies that $\E(G,1 - \eps) < \infty$. This contradicts the assumption that $\eval(G) < 1 - \eps$.
 \end{proof}
@@ -68,7 +68,7 @@ We first define a ``single copy'' distribution $\hat{P}$ as the law of random va
 	\end{array}
 \right.
 \]
-In other words, conditioned on $D=A$ (resp. $D = B$), the variable $M$ takes on a value in $\X$ (resp. $\Y$) from a rescaled version of the distribution $\mu_X$ (resp. $\mu_Y$) where less weight is given to the dummy question $\dummy$. Finally, efine the random variables $(X,Y)$ as follows. 
+In other words, conditioned on $D=A$ (resp. $D = B$), the variable $M$ takes on a value in $\X$ (resp. $\Y$) from a rescaled version of the distribution $\mu_X$ (resp. $\mu_Y$) where less weight is given to the dummy question $\dummy$. Finally, define the random variables $(X,Y)$ as follows. 
 \begin{itemize}
 	\item If $D = A$ then $X$ is chosen to be an ``$\eta$-noisy'' copy of $M$. Precisely, $X = M$ with probability $1 - \eta$ and $X = \dummy$ with probability $\eta$. Define $Y$ to equal $y$ with probability $\mu_{Y|X}(y | m)$, where $m$ is the value of $M$. 
 	\item If $D = B$ then $Y$ is chosen to be an ``$\eta$-noisy'' copy of $M$ and $X$ equals $x$ with probability $\mu_{X|Y}(x | m)$, where $m$ is the value of $M$. 
@@ -123,13 +123,13 @@ Finally, define random variables $\bA = (\bA_i)_{i \in [n]}$ and $\bB = (\bB_i)_
 \[
 	\P_{\bA \bB | \bX = \bx, \bY = \by}(\ba,\bb) = \bra{\psi} A_\bx(\ba) \otimes B_\by(\bb) \ket{\psi}
 \]
-for all $\ba = (\ba_1,\ldots,\ba_n) \in \A^n$ and $\bb = (\bb_1,\ldots,\bb_n) \in \B^n$. $\bA$ and $\bB$ are jointly distributed as answers produced by players using strategy $\strategy$\tnote{Earlier this is called $\strategy^n$. Many occurrences, I wasn't sure how you want to change it} when their question pair for the $i$-th game is $(\bx_i,\by_i)$. 
+for all $\ba = (\ba_1,\ldots,\ba_n) \in \A^n$ and $\bb = (\bb_1,\ldots,\bb_n) \in \B^n$. $\bA$ and $\bB$ are jointly distributed as answers produced by players using strategy $\strategy^n$\tnote{Earlier this is called $\strategy^n$. Many occurrences, I wasn't sure how you want to change it} \hnote{ah, should be $\strategy^n$ throughout. changed} when their question pair for the $i$-th game is $(\bx_i,\by_i)$. 
 Since conditioned on $\bX, \bY$, $\bA$ and $\bB$ are independent of $\bD,\bM$ we have that the marginal distribution of $\bX \bY \bA \bB$ is
 	\[
-		\P(\bx,\by,\ba,\bb) = \Big ( \prod_{i=1}^n \mu(\bx_i,\by_i) \Big) \cdot \bra{\psi} A^{\ba}_\bx \otimes B^{\bb}_\by \ket{\psi}\;,
+		\P(\bx,\by,\ba,\bb) = \Big ( \prod_{i=1}^n \mu(\bx_i,\by_i) \Big) \cdot \bra{\psi} A_\bx(\ba) \otimes B_\by(\bb) \ket{\psi}\;,
 	\]
-	\tnote{Are you using both notation, $A_x^a$ and $A_x(a)$, or is the above a typo?}
-	which matches the joint distribution of questions and answers in the repeated game $G^n$ when the players use the strategy $\strategy$.
+	\tnote{Are you using both notation, $A_x^a$ and $A_x(a)$, or is the above a typo?} \hnote{changed to be consistent.}
+	which matches the joint distribution of questions and answers in the repeated game $G^n$ when the players use the strategy $\strategy^n$.
 
 %
 %
@@ -154,7 +154,7 @@ We introduce \emph{dependency-breaking variables}. These are crucial for control
 Let $C \subseteq [n]$ be a set of coordinates for the repeated game $G^n$. 
 Let $(\bX_C,\bY_C)$ and $(\bA_C,\bB_C)$ denote the players' questions and answers respectively associated with the coordinates indexed by $C$. For $i \in [n]$ let $W_i$ denote the indicator variable for the event that the players win round $i$; i.e. $V(\bX_i,\bY_i,\bA_i,\bB_i) = 1$. Let $W_C = \prod_{i \in C} W_i$. 
 
-For all $i \in [n] \setminus C$ define the $i$-th dependency-breaking variable $\bOmega_i$ as $\bOmega_i = (\bD_i,\bM_i)$. When $\eta = 0$ this definition coincides with the one used by Holenstein in his proof of the classical parallel repetition theorem\tnote{precise reference}; in that case, the variable $\bM_i$ is coupled to either $\bX_i$ or $\bY_i$ exactly. Here we set $\eta$ to be a nonzero value that is related to $\alpha$, the anchoring probability. This ``noisy coupling'' between $\bOmega_i$ and the inputs $(\bX_i,\bY_i)$ is important for our analysis. 
+For all $i \in [n] \setminus C$ define the $i$-th dependency-breaking variable $\bOmega_i$ as $\bOmega_i = (\bD_i,\bM_i)$. When $\eta = 0$ this definition coincides with the one used by Holenstein in his proof of the classical parallel repetition theorem~\cite{Hol09}; in that case, the variable $\bM_i$ is coupled to either $\bX_i$ or $\bY_i$ exactly. Here we set $\eta$ to be a nonzero value that is related to $\alpha$, the anchoring probability. This ``noisy coupling'' between $\bOmega_i$ and the inputs $(\bX_i,\bY_i)$ is important for our analysis. 
 
 
 %fixes one of $\bX_i$ or $\bY_i$. Thus, conditioned on $\bOmega_i$, $\bX_i$ and $\bY_i$ are independent of each other. This is the same dependency-breaking variable used in Holenstein's proof of parallel repetition. More precisely, 
@@ -183,18 +183,19 @@ Define $\bOmega = (\bOmega_i)_{i \in [n] \setminus C} \cup (\bX_C,\bY_C)$. We de
 % 
 \subsubsection{Individual coordinates are relatively unaffected by conditioning} 
 
-For $C\subseteq [n]$ fixed as in the previous subsection  \tnote{what is $m$}\tnote{we assume $W_C$ has positive probability}
+For $C\subseteq [n]$ such that $\P(W_C) > 0$, define \tnote{what is $m$}\tnote{we assume $W_C$ has positive probability}\hnote{added clarification}
 \begin{equation}
 \label{eq:delta}
 	\delta = \frac{1}{m} \left ( \log \frac{1}{\P(W_C)} + |C| \log |\A| |\B| \right)\;.
 \end{equation}
+where $m = n - |C|$. 
 
-\tnote{The next paragraph is very imprecise and false. Could we remove it?}
+\tnote{The next paragraph is very imprecise and false. Could we remove it?} \hnote{I wanted to add some intuitive explanation of what the next Lemma is trying to say. what part is false? The $2^{-m}$?}
 The following lemma shows that if the event $W_C$ occurs with probability significantly larger than $2^{-m}$ then conditioning on $W_C$ does not significantly affect the distribution of the inputs $(\bX_i, \bY_i)$ in a randomly chosen coordinate $i \in [n] \setminus C$, and furthermore the distribution of the the dependency-breaking variable $\bR_\mi$ is insensitive to the questions $(\bX_i,\bY_i)$. In the Lemma, we augment the probability distribution $\P$ with an index $I$ that is chosen from $[n] \setminus C$ uniformly at random, and we let $i$ denote the instantiation of the variable $I$.
 
 \begin{lemma}
 \label{lem:classical_skew}
-The following hold: \tnote{The notation with $I$ and $i$ is bad. Could we write $\frac{1}{m}\sum_i$ as in the proof? Also, the proof seems to give bounds on a random $i$ from $1$ to $m$. Is this some kind of bijection with $[n]\backslash C$?}
+The following hold: \tnote{The notation with $I$ and $i$ is bad. Could we write $\frac{1}{m}\sum_i$ as in the proof? Also, the proof seems to give bounds on a random $i$ from $1$ to $m$. Is this some kind of bijection with $[n]\backslash C$?} \hnote{Re: $I$ vs $i$; this is to be consistent with how we treat all the other random variables $X,Y, \bOmega$ versus their instantiations $x,y,\bomega$, etc. We could switch to $\frac{1}{m} \sum_{i \in [n] \setminus C}$ everywhere; the rest of the proofs use $\Ex_I$ and $\P_I$ to save space and be consistent. Doesn't matter to me as long as we're consistent.}
 \begin{enumerate}
 	\item $\| \P_I \P_{\bOmega_i \bX_i \bY_i | W_C} - \P_I \P_{\bOmega_i \bX_i \bY_i} \| \leq \sqrt{\delta}$
 	\item $\| \P_I  \P_{\bR \bX_i \bY_i | W_C} - \P_I \P_{\bR |W_C} \P_{\bX_i \bY_i | \bOmega_i } \| \leq \sqrt{\delta}$
@@ -227,87 +228,96 @@ where $\mathcal{V}^* = \{ v : \P_{V|W}(v) > 0 \}$.
 \begin{enumerate}
 \item For $i\in [n]\backslash C$ let $\bU_i$ denote the tuple $(\bOmega_i,\bX_i,\bY_i)$, and let $W$ denote the event $W_C$. Note that all of the $\bU_i$ are independent of each other by construction, and thus applying \Cref{lem:hol} we get
 \[
-\sum_{i=1}^m \, \Big \| \P_{\bOmega_i \bX_i \bY_i} - \P_{\bOmega_i \bX_i \bY_i | W_C} \Big \|^2 \leq \log \frac{1}{\P(W_C)}~.
+\sum_{i \in [n] \setminus C} \, \Big \| \P_{\bOmega_i \bX_i \bY_i} - \P_{\bOmega_i \bX_i \bY_i | W_C} \Big \|^2 \leq \log \frac{1}{\P(W_C)}~.
 \]
 Dividing by $m$ on both sides and using Jensen's inequality, we get
 \[
-\frac{1}{m} \sum_{i=1}^m \, \Big \| \P_{\bOmega_i \bX_i \bY_i} - \P_{\bOmega_i \bX_i \bY_i | W_C} \Big \| \leq \sqrt{ \frac{1}{m} \sum_{i=1}^m \, \Big \| \P_{\bOmega_i \bX_i \bY_i} - \P_{\bOmega_i \bX_i \bY_i | W_C} \Big \|^2} \leq \sqrt{ \frac{1}{m} \log \frac{1}{\P(W_C)}}
+\frac{1}{m} \sum_{i \in [n] \setminus C} \, \Big \| \P_{\bOmega_i \bX_i \bY_i} - \P_{\bOmega_i \bX_i \bY_i | W_C} \Big \| \leq \sqrt{ \frac{1}{m} \sum_{i \in [n] \setminus C} \, \Big \| \P_{\bOmega_i \bX_i \bY_i} - \P_{\bOmega_i \bX_i \bY_i | W_C} \Big \|^2} \leq \sqrt{ \frac{1}{m} \log \frac{1}{\P(W_C)}}
 \]
-which by definition of $\delta$ in~\eqref{eq:delta} is at most $\sqrt{\delta}$. %We conclude by observe that $\| \P_I \P_{\bOmega_i \bX_i \bY_i} - \P_I \P_{\bOmega_i \bX_i \bY_i | W_C} \| = \frac{1}{m} \sum_{i=1}^m \, \Big \| \P_{\bOmega_i \bX_i \bY_i} - \P_{\bOmega_i \bX_i \bY_i | W_C} \Big \|$.
+which by definition of $\delta$ in~\eqref{eq:delta} is at most $\sqrt{\delta}$. %We conclude by observe that $\| \P_I \P_{\bOmega_i \bX_i \bY_i} - \P_I \P_{\bOmega_i \bX_i \bY_i | W_C} \| = \frac{1}{m} \sum_{i \in [n] \setminus C} \, \Big \| \P_{\bOmega_i \bX_i \bY_i} - \P_{\bOmega_i \bX_i \bY_i | W_C} \Big \|$.
 
-\item Let $T$ denote the random variable $\bOmega$, let $\bU_i$ denote the pair $(\bX_i,\bY_i)$, and let $V$ denote the pair $(\bA_C,\bB_C)$. Since $\bU_1,\ldots,\bU_m$ are independent, even conditioned on $\Omega$ which is a product event, we can apply 
+\item Let $T$ denote the random variable $\bOmega$, let $\bU_i$ denote the pair $(\bX_i,\bY_i)$, and let $V$ denote the pair $(\bA_C,\bB_C)$. Since $\bU_1,\ldots,\bU_m$ are independent, even conditioned on $\bOmega$ which is a product event \hnote{do you mean random variable with product distribution, not event?}, we can apply 
 \Cref{cor:hol} and get
 \begin{equation}
 \label{eq:classical-skew-1}
-	\frac{1}{m} \sum_{i=1}^m \Big \| \P_{\bR \bX_i \bY_i|W_C} - \P_{\bR|W_C} \P_{\bX_i \bY_i | \bOmega} \Big \| \leq \sqrt{ \frac{1}{m} \left ( \log \Big ( (|\A| \cdot |\B|)^{|C|} \Big) + \log \frac{1}{\P(W_C)}  \right)} = \sqrt{\delta}\;,
+	\frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bR \bX_i \bY_i|W_C} - \P_{\bR|W_C} \P_{\bX_i \bY_i | \bOmega} \Big \| \leq \sqrt{ \frac{1}{m} \left ( \log \Big ( (|\A| \cdot |\B|)^{|C|} \Big) + \log \frac{1}{\P(W_C)}  \right)} = \sqrt{\delta}\;,
 \end{equation}
 where we used the fact that the support of $V$ has size at most $(|\A| \cdot |\B|)^{|C|}$. We then use that $\P_{\bX_i \bY_i | \bOmega} = \P_{\bX_i \bY_i | \bOmega_i}$ to obtain the second item.
 
 \item We start by rewriting~\eqref{eq:classical-skew-1} using Bayes' rule as
 \begin{equation}
 \label{eq:classical-skew-2}
-\frac{1}{m} \sum_{i=1}^m \Big \| \P_{\bOmega_i |W_C} \P_{\bX_i \bY_i | \bOmega_i W_C} \P_{\bR_\mi | \bOmega_i \bX_i \bY_i W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \| \leq \sqrt{\delta}\;.
+\frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bOmega_i |W_C} \P_{\bX_i \bY_i | \bOmega_i W_C} \P_{\bR_\mi | \bOmega_i \bX_i \bY_i W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \| \leq \sqrt{\delta}\;.
 \end{equation}
-We note that $\P_{\bR_\mi | \bOmega_i \bX_i \bY_i W_C} = \P_{\bR_\mi |\bX_i \bY_i W_C}$; in other words, $\bR_\mi$ is independent of $\bOmega_i$, conditioned on $\bX_i,\bY_i,W_C$. This is because the event $W_C$, when conditioned on $\bR_\mi, \bX_i, \bY_i$, is independent of $\bOmega_i$. \tnote{I don't understand this justification}
+We note that $\P_{\bR_\mi | \bOmega_i \bX_i \bY_i W_C} = \P_{\bR_\mi |\bX_i \bY_i W_C}$; in other words, $\bR_\mi$ is independent of $\bOmega_i$, conditioned on $\bX_i,\bY_i,W_C$. This is because $\P(W_C | \bR_\mi \bOmega_i \bX_i \bY_i) = \P(W_C | \bR_\mi \bX_i \bY_i)$ and $\P(W_C | \bOmega_i \bX_i \bY_i) = \P(W_C | \bX_i \bY_i)$, which in turn follow from the fact that the distribution of $(\bA_C,\bB_C)$, conditioned on $(\bX,\bY)$, does not depend on $\bOmega$. \tnote{I don't understand this justification} \hnote{Updated.}
 
-Next we use Item 1 of the Lemma twice\tnote{No, it doesn't apply. I think you're using item 1 once, and Lemma~\ref{lem:hol} for the $\Omega_i$. Note that you use this again later, so it could be stated separately} 
- to get $\frac{1}{m} \sum_{i=1}^m \| \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \| \leq 2\sqrt{\delta}$. Using \Cref{lem:trivial}, this implies that~\eqref{eq:classical-skew-2} differs at most $2\sqrt{\delta}$ from
-\[
-\frac{1}{m} \sum_{i=1}^m \Big \| \P_{\bOmega_i |W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi | \bX_i \bY_i W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \|
-\]
+Item 1 of the Lemma, combined with \Cref{lem:trivial}, implies that $\frac{1}{m} \sum_{i \in [n] \setminus C} \| \P_{\bOmega_i | W_C} - \P_{\bOmega_i}  \| \leq \sqrt{\delta}$. Using \Cref{lem:trivial} again, we get that $\frac{1}{m} \sum_{i \in [n] \setminus C} \| \P_{\bOmega_i } \P_{\bX_i \bY_i | \bOmega_i} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \| \leq \sqrt{\delta}$ and thus combined with Item 1 and the triangle inequality we have $\frac{1}{m} \sum_{i \in [n] \setminus C} \| \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \| \leq 2\sqrt{\delta}$. \hnote{spelled out the derivation more}
+%Next we use Item 1 of the Lemma twice\tnote{No, it doesn't apply. I think you're using item 1 once, and Lemma~\ref{lem:hol} for the $\Omega_i$. Note that you use this again later, so it could be stated separately} 
+% to get $\frac{1}{m} \sum_{i \in [n] \setminus C} \| \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \| \leq 2\sqrt{\delta}$. 
+\Cref{lem:trivial} then implies that~\eqref{eq:classical-skew-2} differs at most $2\sqrt{\delta}$ from
+\begin{equation}
+\label{eq:classical-skew-2b}
+\frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bOmega_i |W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi | \bX_i \bY_i W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \|
+\end{equation}
 Notice that conditioned on $\bOmega_i$, by construction the variables $(\bX_i,\bY_i)$ take on the value $(\dummy,\dummy)$ with probability at least $\eta^2 = \Omega(\alpha^2)$. Thus conditioning both sides of the difference on $(\bX_i,\bY_i) = (\dummy,\dummy)$ we can get that 
 \begin{equation}
 \label{eq:classical-skew-3}
-\frac{1}{m} \sum_{i=1}^m \Big \| \P_{\bOmega_i |W_C} \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_{\bOmega_i | W_C} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \| \leq O \Big( \frac{\sqrt{\delta}}{\alpha^2} \Big),
+\frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bOmega_i |W_C} \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_{\bOmega_i | W_C} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \| \leq O \Big( \frac{\sqrt{\delta}}{\alpha^2} \Big),
 \end{equation}
 which establishes the third item.
 
-\item We insert a fresh copy of $\P_{\bX_i \bY_i | \bOmega_i}$ on both sides of the difference in each term of~\eqref{eq:classical-skew-3} to get, using Lemma~\ref{lem:trivial},
+\item We insert a fresh copy of $\P_{\bX_i \bY_i | \bOmega_i}$ on both sides of the difference in each term of\eqref{eq:classical-skew-2b} and~\eqref{eq:classical-skew-3} to get, using Lemma~\ref{lem:trivial},
+\begin{gather*}
+\frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bOmega_i |W_C}\P_{\bX_i \bY_i | \bOmega_i}  \P_{\bR_\mi | \bX_i, \bY_i, W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \| \leq O(\sqrt{\delta})~, \text{ and} \\
+\frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bOmega_i |W_C}\P_{\bX_i \bY_i | \bOmega_i}  \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \| \leq O \Big( \frac{\sqrt{\delta}}{\alpha^2} \Big)~.
+\end{gather*}
+Using the triangle inequality with these two inequalities we get\tnote{triangle inequality: what are the two terms?} \hnote{added}
 \[
-\frac{1}{m} \sum_{i=1}^m \Big \| \P_{\bOmega_i |W_C}\P_{\bX_i \bY_i | \bOmega_i}  \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi |\bOmega_i  W_C}  \Big \| \leq O \Big( \frac{\sqrt{\delta}}{\alpha^2} \Big)~.
+\frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bOmega_i |W_C}\P_{\bX_i \bY_i | \bOmega_i}  \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi | \bX_i \bY_i  W_C}  \Big \| \leq O \Big( \frac{\sqrt{\delta}}{\alpha^2} \Big)~.
 \]
-Using the triangle inequality, \tnote{triangle inequality: what are the two terms?}
+Using the fact that $\frac{1}{m} \sum_{i \in [n] \setminus C} \| \P_{\bOmega_i | W_C} - \P_{\bOmega_i} \| \leq \sqrt{\delta}$\tnote{Again, I don't think this follows from the first item} \hnote{this was argued previously} combined with \Cref{lem:trivial} and the triangle inequality we get
 \[
-\frac{1}{m} \sum_{i=1}^m \Big \| \P_{\bOmega_i |W_C}\P_{\bX_i \bY_i | \bOmega_i}  \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_{\bOmega_i | W_C} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi | \bX_i \bY_i  W_C}  \Big \| \leq O \Big( \frac{\sqrt{\delta}}{\alpha^2} \Big)~.
+\frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bOmega_i |W_C}\P_{\bX_i \bY_i | \bOmega_i}  \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_{\bOmega_i} \P_{\bX_i \bY_i | \bOmega_i} \P_{\bR_\mi | \bX_i \bY_i  W_C}  \Big \| \leq O \Big( \frac{\sqrt{\delta}}{\alpha^2} \Big)~.
 \]
-Finally, using the fact that $\frac{1}{m} \sum_{i=1}^m \| \P_{\bOmega_i | W_C} - \P_{\bOmega_i} \| \leq \sqrt{\delta}$ by the first item\tnote{Again, I don't think this follows from the first item}, and marginalizing out the random variable $\bOmega_i$, we get\tnote{This probably needs one more step}
+Marginalizing over the random variable $\bOmega_i$, we get\tnote{This probably needs one more step} \hnote{added one more step}
 \[
-\frac{1}{m} \sum_{i=1}^m \Big \| \P_{\bX_i \bY_i}  \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_{\bX_i \bY_i} \P_{\bR_\mi | \bX_i \bY_i  W_C}  \Big \| \leq O \Big( \frac{\sqrt{\delta}}{\alpha^2} \Big)~,
+\frac{1}{m} \sum_{i \in [n] \setminus C} \Big \| \P_{\bX_i \bY_i}  \P_{\bR_\mi | \bX_i = \dummy, \bY_i = \dummy, W_C} - \P_{\bX_i \bY_i} \P_{\bR_\mi | \bX_i \bY_i  W_C}  \Big \| \leq O \Big( \frac{\sqrt{\delta}}{\alpha^2} \Big)~,
 \]
 which concludes the proof of Item 4.
 \end{enumerate}
-%Item 4 follows from Item 1: since $\frac{1}{m} \sum_{i=1}^m \| \P_{\bX_i \bY_i | W_C} - \P_{\bX_i \bY_i} \| \leq \sqrt{\delta}$, by the triangle inequality we have 
+%Item 4 follows from Item 1: since $\frac{1}{m} \sum_{i \in [n] \setminus C} \| \P_{\bX_i \bY_i | W_C} - \P_{\bX_i \bY_i} \| \leq \sqrt{\delta}$, by the triangle inequality we have 
 %\[
-%	\frac{1}{m} \sum_{i=1}^m \|\P_{\bX_i \bY_i} \P_{\bR_\mi | \bX_i \bY_i W_C} - \P_{\bX_i \bY_i \bR_\mi | W_C}  \| \leq \sqrt{\delta}~.
+%	\frac{1}{m} \sum_{i \in [n] \setminus C} \|\P_{\bX_i \bY_i} \P_{\bR_\mi | \bX_i \bY_i W_C} - \P_{\bX_i \bY_i \bR_\mi | W_C}  \| \leq \sqrt{\delta}~.
 %\]
 \end{proof}
 
 \subsubsection{Quantum states and operators}
 \label{sec:states-operators} 
 
-From the operators and state specified in the strategy $\strategy$ \tnote{should be $\strategy^n$?} we define new operators and states that will be used in the analysis.
+From the operators and state specified in the strategy $\strategy^n$ we define new operators and states that will be used in the analysis.
 
-\paragraph{Operators.} For all $\bx \in \X^n, \by \in \Y^n$ let $\{A_\bx(\ba)\}_{\ba \in \A^n}$ and $\{B_\by(\bb)\}_{\bb \in \B^n}$ denote Alice and Bob's POVMs in the strategy $\strategy$ when receiving questions $\bx$ and $\by$, respectively. Define the following operators for all $\ba_C \in \A^C, \bb_C \in \B^C, \bx \in \X^n, \by \in \Y^n$:
+\paragraph{Operators.} For all $\bx \in \X^n, \by \in \Y^n$ let $\{A_\bx(\ba)\}_{\ba \in \A^n}$ and $\{B_\by(\bb)\}_{\bb \in \B^n}$ denote Alice and Bob's POVMs in the strategy $\strategy^n$ when receiving questions $\bx$ and $\by$, respectively. Define the following operators for all $\ba_C \in \A^C, \bb_C \in \B^C, \bx \in \X^n, \by \in \Y^n$:
 \begin{equation}
 \label{eq:states-operators-1}
 	A_{\bx}(\ba_C) = \sum_{\ba | \ba_C} A_{\bx}(\ba) \qquad\text{and} \qquad B_{\by}(\bb_C) = \sum_{\bb | \bb_C} B_{\by}(\bb)
 \end{equation}
 where $\ba | \ba_C$ (resp. $\bb | \bb_C$) indicates summing over all tuples $\ba$ consistent with $\ba_C$ (resp. $\bb$ consistent with $\bb_C$). Note that for all $\bx$ (resp. $\by$), the set $\{ A_\bx(\ba_C) \}$ (resp. $\{ B_\by(\bb_C) \}$) denotes a POVM with outcomes in the set $\A^C$ (resp. $\B^C$).
 
-For all $i \in [m]$, $\bomega_\mi$, $\bx_i \in \X$, and $\by_i \in \Y$ define
+For all $i \in [m]$, $\bomega_\mi$, $x \in \X$, and $y \in \Y$ define
 \begin{equation}
 \label{eq:states-operators-2}
- A_{\bomega_\mi, \bx_i}(\ba_C) = \Ex_{\bX | \bomega_\mi, \bx_i} A_{\bx}(\ba_C) \qquad \text{and} \qquad  B_{\bomega_\mi, \by_i}(\bb_C) = \Ex_{\bY | \bomega_\mi, \by_i} B_{\by}(\bb_C)
+ A_{\bomega_\mi, x}(\ba_C) = \Ex_{\bX | \bomega_\mi, x} A_{\bx}(\ba_C) \qquad \text{and} \qquad  B_{\bomega_\mi, y}(\bb_C) = \Ex_{\bY | \bomega_\mi, y} B_{\by}(\bb_C)
 \end{equation}
-where $\Ex_{\bX | \bomega_\mi, \bx_i}$ is shorthand for $\Ex_{\bX | \bOmega_\mi = \bomega_\mi, \bX_i = \bx_i}$. 
-For all $\bx_i \in \X$, define
+where $\Ex_{\bX | \bomega_\mi, x}$ is shorthand for $\Ex_{\bX | \bOmega_\mi = \bomega_\mi, \bX_i = x}$ (and similarly for $\Ex_{\bY | \bomega_\mi, y}$).
+For all $x \in \X$, define
 \begin{equation}
 \label{eq:states-operators-3}
-	A_{\bomega_\mi,\dummy\!/\bx_i}(\ba_C) = \eta \, A_{\bomega_\mi,\dummy}(\ba_C) + (1 - \eta) \, A_{\bomega_\mi,\bx_i}(\ba_C) \;.
+	A_{\bomega_\mi,\dummyx}(\ba_C) = \eta \, A_{\bomega_\mi,\dummy}(\ba_C) + (1 - \eta) \, A_{\bomega_\mi,x}(\ba_C)~,
 \end{equation}
+where we introduce a symbol ``$\dummyx$'' for every $x \in \X$ to indicate that in the $i$-th coordinate, the $i$-th question $\bX_i$ is set to $\dummy$ with probability $\eta$ and $x$ with probability $1 - \eta$. In the case that $x = \dummy$, then $\bX_i$ is set to $\dummy$ always.
 
 
-\paragraph{States.}  For all $C \subset [n]$\tnote{before $C$ was always fixed}, $i \in [n] \setminus C$, $\br_\mi = (\bomega_\mi,\ba_C,\bb_C)$ and $x \in \X$, for all $s \in \{x,\dummyx\}$\tnote{We should clarify what $\dummyx$ is. It's a variable that ranges over a disjoint copy of $\X$, right? Including $\dummy/\dummy$}, and for all $y \in \Y$, define the (unnormalized) state
+\paragraph{States.}  For all $i \in [n] \setminus C$, $\br_\mi = (\bomega_\mi,\ba_C,\bb_C)$ and $x \in \X$, for all $s \in \{x,\dummyx\}$\tnote{We should clarify what $\dummyx$ is. It's a variable that ranges over a disjoint copy of $\X$, right? Including $\dummy/\dummy$} \hnote{added explanation above}, and for all $y \in \Y$, define the (unnormalized) state
 \[
 	\ket{\Phi_{\br_\mi,s,y}} = A_{\bomega_\mi,s}(\ba_C)^{1/2} \otimes B_{\bomega_\mi,y}(\bb_C)^{1/2} \, \ket{\psi}~.
 \]
@@ -315,14 +325,33 @@ and define the normalization factor
 \[
 	\gamma_{\br_\mi,s,y} = \big \| \, \ket{\Phi_{\br_\mi,s,y}} \, \big \|~.
 \]
-Note that when $s \in \X$ the normalization factor can equivalently be expressed as\tnote{Are we going to use this equation and the next? If so I suggest to make them a claim, with proof. It's not obvious at first that the expectations are in the right place and one has to do the math}
+
+\tnote{Are we going to use this equation and the next? If so I suggest to make them a claim, with proof. It's not obvious at first that the expectations are in the right place and one has to do the math} \hnote{added:} The following proposition relates the normalization factors $\gamma_{\br_\mi,s,y}$ in terms of the probability of obtaining answers $(\ba_C,\bb_C)$ in the strategy $\strategy^n$. 
+\begin{proposition}
+\label{prop:gamma}
+When $s \in \X$, we have
 \[
-	\gamma_{\br_\mi,s,y} = \Big( \P_{\bA_C \bB_C | \bR_\mi, \bX_i = s, \bY_i = y}(\ba_C,\bb_C) \Big)^{1/2}~.
+	\gamma_{\br_\mi,s,y} = \Big( \P_{\bA_C \bB_C | \bOmega_\mi = \bomega_\mi, \bX_i = s, \bY_i = y}(\ba_C,\bb_C) \Big)^{1/2}
 \]
-When $s = \dummyx$ for some $x \in \X$, then 
+and when $s = \dummyx$ for some $x \in \X$, then 
 \[
-	\gamma_{\br_\mi,s,y} = \Big( \eta \, \P_{\bA_C \bB_C | \bR_\mi, \bX_i = \dummy, \bY_i = y}(\ba_C,\bb_C) + (1 - \eta) \, \P_{\bA_C \bB_C | \bR_\mi, \bX_i = x, \bY_i = y}(\ba_C,\bb_C)\Big)^{1/2}~.
+	\gamma_{\br_\mi,s,y} = \Big( \eta \, \P_{\bA_C \bB_C | \bOmega_\mi = \bomega_\mi, \bX_i = \dummy, \bY_i = y}(\ba_C,\bb_C) + (1 - \eta) \, \P_{\bA_C \bB_C | \bOmega_\mi = \bomega_\mi, \bX_i = x, \bY_i = y}(\ba_C,\bb_C)\Big)^{1/2}~.
 \]
+\end{proposition}
+\begin{proof}
+Suppose that $s \in \X$. Then expanding out the definition of $ A_{\bomega_\mi,s}(\ba_C)$ and $B_{\bomega_\mi,y}(\bb_C)$ we have
+\begin{align*}
+	\gamma_{\br_\mi,s,y}^2 &= \bra{\psi} A_{\bomega_\mi,s}(\ba_C) \otimes B_{\bomega_\mi,y}(\bb_C) \, \ket{\psi} \\
+	&= \Ex_{\bX | \bomega_\mi, s} \, \Ex_{\bY | \bomega_\mi, y} \, \bra{\psi} A_\bx(\ba_C) \otimes B_\by(\bb_C) \, \ket{\psi} \\
+	&= \Ex_{\bX | \bomega_\mi, s} \, \Ex_{\bY | \bomega_\mi, y} \, \bra{\psi} A_\bx(\ba_C) \otimes B_\by(\bb_C) \, \ket{\psi} \\
+	&= \Ex_{\bX, \bY | \bOmega_\mi = \bomega_\mi, \bX_i = s, \bY_i = y} \, \P_{\bA_C \bB_C | \bx, \by}(\ba_C,\bb_C) \\
+	&= \P_{\bA_C \bB_C | \bOmega_\mi = \bomega_\mi, \bX_i = s,\bY_i = y}(\ba_C,\bb_C)~.
+\end{align*}
+In the second-to-last line, we used the fact that $\bX$ and $\bY$ are independent conditioned on $\bOmega_\mi$. 
+
+The calculation for when $s = \dummyx$ follows in nearly an identical manner.
+\end{proof}
+
 Finally, we let
 \begin{equation}\label{eq:def-psitt}
 	\ket{\wt{\Phi}_{\br_\mi,s,y}} = \gamma_{\br_\mi,s,y}^{-1} \, \ket{\Phi_{\br_\mi,s,y}}
@@ -896,7 +925,7 @@ The following is a well-known theorem in quantum information theory (see, e.g.,~
 \subsubsection{The proof}
 
 %\begin{proof}[Proof of Lemma~\ref{lem:unitary_bounds}]
-Recall that the strategy $\strategy$ consists of the entangled state $\ket{\psi} \in \C^d_{E_A} \otimes \C^d_{E_B}$ and POVMs $\{A_\bx(\ba) \}$ acting on system $E_A$ and $\{B_\by(\bb) \}$ acting on system $E_B$. For all $\bomega$ and $\ba_C$, define
+Recall that the strategy $\strategy^n$ consists of the entangled state $\ket{\psi} \in \C^d_{E_A} \otimes \C^d_{E_B}$ and POVMs $\{A_\bx(\ba) \}$ acting on system $E_A$ and $\{B_\by(\bb) \}$ acting on system $E_B$. For all $\bomega$ and $\ba_C$, define
 \[
 	A_\bomega(\ba_C) = \Ex_{\bX | \bOmega = \bomega} \, A_\bx(\ba_C)
 \]
@@ -909,7 +938,7 @@ Recall the notation $\psi = \ket{\psi}\bra{\psi}$ and $X[\rho]=X\rho X^\dagger$.
 \[
 \Xi^{\bOmega \bY E_AE_B\ac} = \sum_{\bomega, \by, \ba_C, \bb_C} \P_{\bOmega \bY} (\bomega, \by) \, \puretomixed{\bomega, \by}   \otimes \left (\sqrt{A_{\bomega}(\ba_C)} \otimes \sqrt{B_{\by}(\bb_C)} \right ) \left [\psi \right ] \otimes \puretomixed{\ba_C, \bb_C}~.
 \]
-This state is classical on the registers $\bOmega$, $\bY$, and $\ac$, and quantum on registers $E_A E_B$. Observe that this state looks very similar -- but not quite -- to the one that occurs in an actual execution of the strategy $\strategy$. There are several important differences: one is that the measurements only produce answers for the coordinates indexed by $C$. Another difference is that the measurement operators $A_\bomega(\ba_C)$ are not part of the strategy but instead are derived from Alice's measurements $\{A_\bx\}$. Finally, note that there is no explicit register for Alice's question vector $\bX$ (except for the $\bX_C$ questions, which are included in the register $\bOmega$); instead these questions are implicitly averaged over within the $A_\omega$ measurement. 
+This state is classical on the registers $\bOmega$, $\bY$, and $\ac$, and quantum on registers $E_A E_B$. Observe that this state looks very similar -- but not quite -- to the one that occurs in an actual execution of the strategy $\strategy^n$. There are several important differences: one is that the measurements only produce answers for the coordinates indexed by $C$. Another difference is that the measurement operators $A_\bomega(\ba_C)$ are not part of the strategy but instead are derived from Alice's measurements $\{A_\bx\}$. Finally, note that there is no explicit register for Alice's question vector $\bX$ (except for the $\bX_C$ questions, which are included in the register $\bOmega$); instead these questions are implicitly averaged over within the $A_\omega$ measurement. 
 
 Despite these differences, the state $\Xi$ is defined so that tracing out the entanglement registers $E_A$ and $E_B$ the resulting state $\Xi^{\bOmega \bY \bA_C \bB_C}$ is a classical state that is equivalent to the probability distribution $\P_{\bOmega \bY \bA_C \bB_C}$. To see this, observe that
 \begin{align*}
