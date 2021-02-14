@@ -35,7 +35,9 @@ Let $G$ be an $\alpha$-anchored game satisfying $\eval(G) < 1-\eps$. Then
 %Thus the anchoring operation provides a general gap amplification transformation for the entangled value of any multiplayer game.
 
 The remainder of this section is devoted to the proof of \Cref{thm:anchorpr_quantum}. Fix an $\alpha$-anchored two-player game $G = (\X \times \Y,\A \times \B,\mu,V)$. Fix an $\eps > 0$, integer $n\geq 1$ and $p$ satisfying \Cref{eq:p}. First suppose that $\E(G^n,p) = +\infty$; then $\E(G^n,p) \geq \E(G,1 - \eps)$ trivially holds. The other case is that $\E(G^n,p) = d$ for some finite $d$. Let $\strategy^n = (\ket{\psi},A,B)$ be a $d$-dimensional strategy for $G^n$ with value $\eval(G^n,\strategy^n) = p$. By conjugating the second player's measurement operators by a unitary $U$, and exchanging $\ket{\psi}$ with $\Id \otimes U \ket{\psi}$, we may assume without loss of generality that $\ket{\psi}$ is  invariant under permutation, i.e.\ can be written as 
-\[ \ket{\psi} \,=\, \sum_j \sqrt{\lambda_j} \ket{v_j} \ket{v_j}\,\in \, \C_{E_A}^d \otimes \C_{E_B}^d\]
+\begin{equation}\eqref{eq:psi-sym}
+ \ket{\psi} \,=\, \sum_j \sqrt{\lambda_j} \ket{v_j} \ket{v_j}\,\in \, \C_{E_A}^d \otimes \C_{E_B}^d
+\end{equation}
 for an orthonormal basis $\{ \ket{v_j} \}_j$. Our goal is to show the existence of a $d$-dimensional strategy $\strategy$ for $G$ that succeeds with probability at least $1 - \eps$. 
 
 
@@ -146,6 +148,7 @@ Since conditioned on $\bX, \bY$, $\bA$ and $\bB$ are independent of $\bD,\bM$ we
 
 
 \subsubsection{Dependency-breaking variables} 
+\label{sec:dep-var}
 
  
 We introduce \emph{dependency-breaking variables}. These are crucial for controlling the correlations that arise in the analysis when conditioning the  distribution $\P$ on different events. 
@@ -160,6 +163,8 @@ For all $i \in [n] \setminus C$ define the $i$-th dependency-breaking variable $
 
 
 Define $\bOmega = (\bOmega_i)_{i \in [n] \setminus C} \cup (\bX_C,\bY_C)$. We denote realizations of the random variable $\bOmega$ using $\bomega = (\bomega_i)_{i \in [n] \setminus C} \cup (\bx_C,\by_C)$. For $i \in [n] \setminus C$ we write $\bOmega_\mi$ to denote $(\bOmega_j)_{j \in [n] \setminus (C \cup \{i\})} \cup (\bX_C,\bY_C)$ and $\bomega_\mi$ to denote instantiations of $\bOmega_\mi$. We furthermore define variables $\bR = (\bOmega,\bA_C,\bB_C)$ and $\bR_\mi = (\bOmega_\mi,\bA_C,\bB_C)$ with realizations $\br = (\bomega,\ba_C,\bb_C)$ and $\br_\mi = (\bomega_\mi,\ba_C,\bb_C)$ respectively.
+
+\tnote{I think here we should insert a claim with easy facts that are used in various places; it would help the reader not scratch their head every time a random claim such as $\P_{\bA_C \bB_C | \bX \bY} = \P_{\bA_C \bB_C | \bOmega \bX \bY}$ is made}
 
 
 
@@ -914,36 +919,34 @@ The following is well-known and can be found in e.g.~\cite{wilde2013quantum}.
 
 \subsubsection{The proof}
 
-%\begin{proof}[Proof of Lemma~\ref{lem:unitary_bounds}]
-Recall that the strategy $\strategy^n$ consists of the entangled state $\ket{\psi} \in \C^d_{E_A} \otimes \C^d_{E_B}$ and POVMs $\{A_\bx(\ba) \}$ acting on system $E_A$ and $\{B_\by(\bb) \}$ acting on system $E_B$. For all $\bomega$ and $\ba_C$, define
+Recall from Section~\ref{sec:states-operators} that the strategy $\strategy^n$ consists of the entangled state $\ket{\psi} \in \C^d_{E_A} \otimes \C^d_{E_B}$ and POVMs $\{A_\bx(\ba) \}$ acting on system $E_A$ and $\{B_\by(\bb) \}$ acting on system $E_B$. For all $\bomega$ and $\ba_C$, define
 \[
 	A_\bomega(\ba_C) = \Ex_{\bX | \bOmega = \bomega} \, A_\bx(\ba_C)
 \]
-where $A_\bx(\ba_C)$ is defined in Section~\ref{sec:quantum_setup}. 
-%We refer the reader to Section~\ref{sec:quantum_setup} for the definitions of operators $A_{\bomega}(\ba_C)$, etc. 
-We let $\rho$ denote the reduced density matrix of $\ket{\psi}$ on either system (this is well-defined because we've assumed $\ket{\psi}$ is symmetric). 
+where $A_\bx(\ba_C)$ is defined in~\ref{eq:states-operators-1}. 
+We let $\rho$ denote the reduced density matrix of $\ket{\psi}$ on either system (this is well-defined because we assumed the form~\eqref{eq:psi-sym} for $\ket{\psi}$). 
 
 %We first prove~\eqref{eq:vy_bound}, that is, the existence of the unitary $V_{\br_\mi, y}$. 
 Recall the notation $\psi = \ket{\psi}\bra{\psi}$ and $X[\rho]=X\rho X^\dagger$. For a classical random variable, such as $\ba_C$, we write $\puretomixed{\ba_C}$ to denote the rank-$1$ density matrix $\ketbra{\ba_C}{\ba_C}$. Let $\ac$ denote the random variable pair $(\bA_C, \bB_C)$ so that $\bR_\mi = (\bOmega_\mi,\ac)$. Define the following state:
 \[
 \Xi^{\bOmega \bY E_AE_B\ac} = \sum_{\bomega, \by, \ba_C, \bb_C} \P_{\bOmega \bY} (\bomega, \by) \, \puretomixed{\bomega, \by}   \otimes \left (\sqrt{A_{\bomega}(\ba_C)} \otimes \sqrt{B_{\by}(\bb_C)} \right ) \left [\psi \right ] \otimes \puretomixed{\ba_C, \bb_C}~.
 \]
-This state is classical on the registers $\bOmega$, $\bY$, and $\ac$, and quantum on registers $E_A E_B$. Observe that this state looks very similar -- but not quite -- to the one that occurs in an actual execution of the strategy $\strategy^n$. There are several important differences: one is that the measurements only produce answers for the coordinates indexed by $C$. Another difference is that the measurement operators $A_\bomega(\ba_C)$ are not part of the strategy but instead are derived from Alice's measurements $\{A_\bx\}$. Finally, note that there is no explicit register for Alice's question vector $\bX$ (except for the $\bX_C$ questions, which are included in the register $\bOmega$); instead these questions are implicitly averaged over within the $A_\omega$ measurement. 
-
-Despite these differences, the state $\Xi$ is defined so that tracing out the entanglement registers $E_A$ and $E_B$ the resulting state $\Xi^{\bOmega \bY \bA_C \bB_C}$ is a classical state that is equivalent to the probability distribution $\P_{\bOmega \bY \bA_C \bB_C}$. To see this, observe that
+This state is classical on the registers $\bOmega$, $\bY$, and $\ac$, and quantum on registers $E_A$ and $E_B$. %Observe that this state looks very similar -- but not quite -- to the one that occurs in an actual execution of the strategy $\strategy^n$. There are several important differences: one is that the measurements only produce answers for the coordinates indexed by $C$. Another difference is that the measurement operators $A_\bomega(\ba_C)$ are not part of the strategy but instead are derived from Alice's measurements $\{A_\bx\}$. Finally, note that there is no explicit register for Alice's question vector $\bX$ (except for the $\bX_C$ questions, which are included in the register $\bOmega$); instead these questions are implicitly averaged over within the $A_\omega$ measurement. 
+It is defined in such a way that tracing out the entanglement registers $E_A$ and $E_B$ the resulting state $\Xi^{\bOmega \bY \bA_C \bB_C}$ is a classical state that represents the probability distribution $\P_{\bOmega \bY \bA_C \bB_C}$. To see this, observe that
 \begin{align*}
 \Xi^{\bOmega \bY \bA_C \bB_C} &= \sum_{\bomega, \by, \ba_C, \bb_C} \P_{\bOmega \bY}(\bomega, \by) \, \puretomixed{\bomega, \by, \ba_C, \bb_C} \, \bra{\psi} A_\bomega(\ba_C) \otimes B_\by(\bb_C) \ket{\psi} \\
 &= \sum_{\bomega, \by, \ba_C, \bb_C} \P_{\bOmega \bY}(\bomega, \by) \, \puretomixed{\bomega, \by, \ba_C, \bb_C} \, \bra{\psi} \Ex_{\bX | \bOmega = \bomega} \, A_\bx(\ba_C)  \otimes B_\by(\bb_C) \ket{\psi} \\
 &= \sum_{\bomega, \bx, \by, \ba_C, \bb_C} \P_{\bOmega \bX \bY}(\bomega, \bx, \by) \, \puretomixed{\bomega, \by, \ba_C, \bb_C} \cdot \P_{\bA_C \bB_C | \bX = \bx, \bY = \bY}(\ba_C,\bb_C) \\
 &= \sum_{\bomega,\by, \ba_C, \bb_C} \P_{\bOmega\bY \bA_C \bB_C}(\bomega, \by, \ba_C,\bb_C) \, \puretomixed{\bomega, \by, \ba_C, \bb_C}
 \end{align*}
-where in the third line we used the fact that $\P_{\bOmega \bX \bY} = \P_{\bOmega} \P_{\bX | \bOmega} \P_{\bY | \bOmega}$ and in the fourth line we used that $\P_{\bA_C \bB_C | \bX \bY} = \P_{\bA_C \bB_C | \bOmega \bX \bY}$. 
+where in the third line we used the fact that $\P_{\bOmega \bX \bY} = \P_{\bOmega} \P_{\bX | \bOmega} \P_{\bY | \bOmega}$ and in the fourth line we used that $\P_{\bA_C \bB_C | \bX \bY} = \P_{\bA_C \bB_C | \bOmega \bX \bY}$. \tnote{These two facts should be included in a claim in Section~\ref{sec:dep-var}; see note there}
 
-Since the event $W_C$ is determined by the random variables $(\bOmega,\bA_C,\bB_C)$, we can \emph{condition} the state $\Xi$ on the event $W_C$ to obtain a new state
+Since the event $W_C$ is determined by the random variables $(\bOmega,\bA_C,\bB_C)$ we can {condition} the state $\Xi$ on the event $W_C$ to obtain a new state
 \[
 	\xi^{\bOmega \bY E_A E_B \ac} = \frac{1}{\P(W_C)} \sum_{\substack{\bomega, \by, \ba_C, \bb_C: \\ (\bomega,\ba_C,\bb_C) \in W_C}} \P_{\bOmega \bY}(\bomega, \by) \, \puretomixed{\bomega, \by, \ba_C, \bb_C} \, \bra{\psi} A_\bomega(\ba_C) \otimes B_\by(\bb_C) \ket{\psi} \otimes \puretomixed{\ba_C,\bb_C}~.
 \]
-We can further condition $\xi$ and $\Xi$ on the specific settings of the classical variables $(\bOmega,\bY,\bA_C,\bB_C)$. For example, for all $\br = (\bomega,\ba_C,\bb_C)$, we write $\xi_\br$ and $\Xi_\br$ to denote $\xi$ and $\Xi$ conditioned on $\bOmega = \bomega, \bA_C = \ba_C,\bB_C = \bb_C$, respectively. As another example, for all $i \in [n] \setminus C$, $\br_\mi = (\bomega_\mi,\ba_C,\bb_C) \in W_C$, $x \in \X$ and $y \in \Y$, we write $\xi_{\br_\mi,x,y}$ an $\Xi_{\br_\mi,x,y}$ to denote $\xi$ and $\Xi$ respectively conditioned on $\bOmega = \bomega$ (where $\bomega = (\bomega_\mi,\bomega_i)$ with $\bomega_i = (A,x)$),  $\bA_C = \ba_C, \bB_C = \bb_C$, and $\bY_i = y$.
+\tnote{above, $a_C,b_C$ appears twice. Remove the first? Also, on the rhs $E_A,E_B$ seem measured. Should be like in the definition of $\Xi$?}
+We can further condition $\xi$ and $\Xi$ on specific settings of the classical variables $(\bOmega,\bY,\bA_C,\bB_C)$. For example, for any $\br = (\bomega,\ba_C,\bb_C)$ we write $\xi_\br$ and $\Xi_\br$ to denote $\xi$ and $\Xi$ conditioned on $\bOmega = \bomega, \bA_C = \ba_C,\bB_C = \bb_C$, respectively. As another example, for all $i \in [n] \setminus C$, $\br_\mi = (\bomega_\mi,\ba_C,\bb_C) \in W_C$, $x \in \X$ and $y \in \Y$, we write $\xi_{\br_\mi,x,y}$ an $\Xi_{\br_\mi,x,y}$ to denote $\xi$ and $\Xi$ respectively conditioned on $\bOmega = \bomega$ (where $\bomega = (\bomega_\mi,\bomega_i)$ with $\bomega_i = (A,x)$\tnote{Why $A$? You're saying that in the notation it's implicitly always forced to $A$?}),  $\bA_C = \ba_C, \bB_C = \bb_C$, and $\bY_i = y$.
 %
 %\begin{gather}
 %	\xi^{\bOmega \bY  E_AE_B \ac} = \Xi^{\bOmega \bY E_AE_B \ac|W_C} ,\label{eq:xi-def}\\
@@ -957,13 +960,62 @@ We can further condition $\xi$ and $\Xi$ on the specific settings of the classic
 %\]
 % In~\eqref{eq:xi-def} the conditioning on $W_C$ is well-defined since the event only involves classical random variables in $\bOmega$ and $\ac = (\bA_C,\bB_C)$. In~\eqref{eq:xisspp-def} only the reduced density on $E_A$ is considered, all other registers being traced out. %We also consider states such as $\xi^{Y^mE_A}_{\bomega,z} = \xi_{Y^mE_A|\bOmega=\bomega,\ac=z}$, where non-indexed registers are always considered to be traced out. 
 
-The following claim provides the main step of the proof by relating the reduced densities on Alice's registers of the $\xi$ states associated with different choices of $i,\br_\mi,x,y$. 
+The main step of the proof is given by the following two claims. 
+
+\begin{claim}\label{claim:xi-change-x}
+The following holds: 
+\begin{equation}\label{eq:xi-change-1}
+\Ex_I \, \Ex_{\bR \bY_i | W_C} \,\, \Big \| \xi^{E_A}_{\br,\by_i} -  \xi^{E_A}_{\br} \Big \|_1^2 \, =\, O(\delta)\;,
+\end{equation}
+where the expectation over $Y$ is with respect to the game distribution $\mu_{Y}$. 
+\end{claim}
+
+\begin{proof}
+
+First we observe that by definition $\P(W_C) \, \xi\,\, \leq \,\Xi$. Using the definitions this implies
+\[ \D(\xi \| \Xi)\leq \D_\infty(\xi \| \Xi) \leq \log \frac{1}{\P(W_C)}\;.\]
+  Using the chain rule for the relative entropy (\Cref{prop:divergence_chain_rule}) and the fact that tracing out registers can only decrease the relative entropy (\Cref{prop:divergence_data_processing}), 
+\begin{equation}\label{eq:claim23-1}
+	\Ex_{\bR | W_C} \D \big (\xi_{\br}^{\bY E_A} \,\, \| \,\, \Xi_{\br}^{\bY E_A} \big ) \leq \log \frac{1}{\P(W_C)}\;.
+\end{equation}
+For a symmetric entangled state of the form $\ket{\psi} = \sum \sqrt{\lambda_j} \ket{v_j}\ket{v_j} \in \C^d \otimes \C^d$ and for all linear operators $X,Y$ acting on $\C^d$, a simple calculations shows that
+\[
+	\Tr_{E_B} \Big( (X \otimes Y)\ketbra{\psi}{\psi}(X \otimes Y)^\dagger \Big) = X \, \sqrt{\rho} \, \overline{Y^\dagger Y} \, \sqrt{\rho} \, X^\dagger\;,
+\]
+where $\rho = \sum \lambda_j \ket{v_j}\bra{v_j}$ and the complex conjugate is taken with respect to the orthonormal basis $\{\ket{v_j}\}$.  
+	Using this, for all $\bomega$\tnote{Before the register you call $ \bA_C \bB_C$ here was called $Z$}
+	\begin{align}
+		\Xi_\bomega^{\bY E_A \bA_C \bB_C} &= \sum_{\by, \ba_C, \bb_C} \P_{\bY | \bomega}(\by) \,\, \puretomixed{\by} \otimes \sqrt{A_\bomega(\ba_C)} \,\, \sqrt{\rho} \,\, \overline{B}_{\by}(\bb_C) \,\, \sqrt{\rho} \,\, \sqrt{A_\bomega(\ba_C)}  \otimes \puretomixed{\ba_C \bb_C}\notag \\
+		&\leq  \sum_{\by, \ba_C, \bb_C} \P_{\bY | \bomega}(\by) \,\, \puretomixed{\by} \otimes \sqrt{A_\bomega(\ba_C)} \,\, \sqrt{\rho} \,\, \overline{B}_{\by}(\bb_C) \,\, \sqrt{\rho} \,\, \sqrt{A_\bomega(\ba_C)} \otimes \Id \notag\\
+		&= \sum_{\by, \ba_C} \P_{\bY | \bomega}(\by) \,\, \puretomixed{\by} \otimes \sqrt{A_\bomega(\ba_C)} \,\,\rho\,\, \sqrt{A_\bomega(\ba_C)} \otimes \Id \label{eq:claim23-2},
+	\end{align}
+where the last equality uses $\sum_{\bb_C} \overline{B}_{\by}(\bb_C) = \Id$. Taking the partial trace on both sides,
+\begin{align}
+\label{eq:local-unitaries-2}
+\Xi_\bomega^{\bY E_A} \preceq (|\A|\cdot |\B|)^{|C|} \cdot \sum_{\by, \ba_C} \P_{\bY | \bomega}(\by) \,\, \puretomixed{\by} \otimes \sqrt{A_\bomega(\ba_C)} \,\,\rho\,\, \sqrt{A_\bomega(\ba_C)} = \Xi_{\bomega}^{\bY} \otimes \Xi_{\bomega}^{E_A}~.
+\end{align}
+\tnote{Is the right-hand side meant to be a definition of $\Xi_{\bomega}^{\bY}$ and $\Xi_{\bomega}^{E_A}$? The notation is confusing with what you'd obtain by directly taking the direct trace. Also, it's unclear where you put the big prefactor.}\tnote{Ok I now see it's not. Then I don't get what the last ``$=$'' means. It's missing the prefactor? }
+	From~\eqref{eq:local-unitaries-2} and the definition of $\D_\infty$ it follows that 
+	\begin{equation}\label{eq:claim23-2b}
+	\D_\infty \Big (\Xi_{\bomega}^{\bY E_A} \Big \| \Xi_{\bomega}^{\bY} \otimes \Xi_{\bomega}^{E_A} \Big ) \leq |C| \cdot \log |\A| |\B|\;.
+	\end{equation}
+Applying Lemma~\ref{lem:quantum_raz},
+\begin{align*}
+		\Ex_I \,  \Ex_{\bR | W_C} \I \Big (\bY_i ; E_A | \br \Big )_{\xi} &\leq 		\frac{1}{m} \Ex_{\bR | W_C} \D \Big (\xi_{\br}^{\bY E_A} \Big \| \Xi_{\br}^{\bY} \otimes \Xi_{\br}^{E_A} \Big )\notag\\
+		&\leq \frac{1}{m} \Ex_{\bOmega | W_C} \D \Big (\xi_{\bomega}^{\bY E_A} \Big \| \Xi_{\bomega}^{\bY} \otimes \Xi_{\bomega}^{E_A} \Big )~.\notag \\
+		&\leq 		\frac{1}{m} \Big(\Ex_{\bOmega | W_C} \D \Big (\xi_{\bomega}^{\bY E_A} \Big \| \Xi_{\bomega}^{\bY E_A} \Big) + \Ex_{\bOmega | W_C} \D_\infty \Big (\Xi_{\bomega}^{\bY E_A} \Big \| \Xi_{\bomega}^{\bY} \otimes \Xi_{\bomega}^{E_A} \Big) \, \Big)\notag\\
+		&\leq \frac{1}{m}\Big(\log \frac{1}{\P(W)} +  |C| \cdot \log |\A| |\B|\Big) = \delta~.
+\end{align*}
+where the second inequality follows from \Cref{prop:divergence_chain_rule}, the third from \Cref{prop:relative_min_entropy_chain_rule2} and the last uses~\eqref{eq:claim23-1} and~\eqref{eq:claim23-2b}. 
+\end{proof}
+
+The second claim relates the reduced densities on $E_A$ of the states $\xi$  associated with different choices of $i,\br_\mi,x,y$. 
 
 \begin{claim}\label{claim:xi-change-y}
-The following bound holds:
+The following holds:
 \begin{align}
 \label{eq:E_A_1}
-\Ex_I \, \Ex_{\bR_\mi |  W_C} \, \, \, \Ex_{XY} \,\, \Big \| \xi^{E_A}_\ssxy - \xi^{E_A}_\ssxp \Big \|_1^2 = O\big(\sqrt{\delta}/\alpha^3 \Big)
+\Ex_I \, \Ex_{\bR_\mi |  W_C} \, \, \, \Ex_{XY} \,\, \Big \| \xi^{E_A}_\ssxy - \xi^{E_A}_\ssxp \Big \|_1^2\; = \; O\big(\sqrt{\delta}/\alpha^3 \big)\;,
 %\label{eq:E_A_2}
 %\Ex_I \, \Ex_{\bR_\mi |  W_C} \, \, \, \Ex_{\bX_i\bY_i} \,\, \Big \| \xi^{E_A}_\sspxiyi - \xi^{E_A}_\sspxip \Big \|_1^2 = O\big(\sqrt{\delta}/\alpha^2\big)
 \end{align}
@@ -971,76 +1023,39 @@ where the expectation over $XY$ is with respect to the game distribution $\mu_{X
 \end{claim}
 
 \begin{proof}
-First we observe that $\P(W_C) \, \xi\,\, \preceq \,\Xi$, thus by definition $\D(\xi \| \Xi)\leq \D_\infty(\xi \| \Xi) \leq \log \frac{1}{\P(W_C)}$.  Using the chain rule for the relative entropy (\Cref{prop:divergence_chain_rule}) and the fact that tracing out registers can only decrease the relative entropy (\Cref{prop:divergence_data_processing}), 
-\begin{equation}\label{eq:claim23-1}
-	\Ex_{\bR | W_C} \D \Big (\xi_{\br}^{\bY E_A} \,\, \| \,\, \Xi_{\br}^{\bY E_A} \Big ) \leq \log \frac{1}{\P(W_C)}.
-\end{equation}
-Recall that for a symmetric entangled state of the form $\ket{\psi} = \sum \sqrt{\lambda_j} \ket{v_j}\ket{v_j} \in \C^d \otimes \C^d$, and for all linear operators $X,Y$ acting on $\C^d$, 
-\[
-	\Tr_{E_B} \Big( (X \otimes Y)\ketbra{\psi}{\psi}(X \otimes Y)^\dagger \Big) = X \, \sqrt{\rho} \, \overline{Y^\dagger Y} \, \sqrt{\rho} \, X^\dagger
-\]
-where $\rho = \sum \lambda_j \ket{v_j}\bra{v_j}$ and the complex conjugate is taken with respect to the orthonormal basis $\{\ket{v_j}\}$. 
-%Recall Ando's identity, which states that
-%	$$
-%		\bra{\psi} X \otimes Y \ket{\psi} = \Tr(X \sqrt{\rho} Y^\top \sqrt{\rho}),
-%	$$
-%	where $\ket{\psi} = \sum \sqrt{\lambda_j} \ket{v_j}\ket{v_j}$, $\rho = \sum \lambda_j \ket{v_j}\bra{v_j}$, $X$, $Y$ are any linear operators and the transpose is taken with respect to the orthonormal basis $\{\ket{v_j}\}$. 
-	Using this, we have for all $\bomega$,
-	\begin{align}
-		\Xi_\bomega^{\bY E_A \bA_C \bB_C} &= \sum_{\by, \ba_C, \bb_C} \P_{\bY | \bomega}(\by) \,\, \puretomixed{\by} \otimes \sqrt{A_\bomega(\ba_C)} \,\, \sqrt{\rho} \,\, \overline{B}_{\by}(\bb_C) \,\, \sqrt{\rho} \,\, \sqrt{A_\bomega(\ba_C)}  \otimes \puretomixed{\ba_C \bb_C}\notag \\
-		&\preceq  \sum_{\by, \ba_C, \bb_C} \P_{\bY | \bomega}(\by) \,\, \puretomixed{\by} \otimes \sqrt{A_\bomega(\ba_C)} \,\, \sqrt{\rho} \,\, \overline{B}_{\by}(\bb_C) \,\, \sqrt{\rho} \,\, \sqrt{A_\bomega(\ba_C)} \otimes \Id \notag\\
-		&= \sum_{\by, \ba_C} \P_{\bY | \bomega}(\by) \,\, \puretomixed{\by} \otimes \sqrt{A_\bomega(\ba_C)} \,\,\rho\,\, \sqrt{A_\bomega(\ba_C)} \otimes \Id \label{eq:claim23-2},
-	\end{align}
-where the last equality uses $\sum_{\bb_C} \overline{B}_{\by}(\bb_C) = \Id$. Taking the partial trace on both sides (which preserves the positive-semidefinite ordering), we have
+
+Applying Pinsker's inequality (Lemma~\ref{prop:pinsker}) and using that $\bY_i$ is classical\tnote{can you spell this out? It's a bit quick. There's also typos: factor $\ln 2$ missing, and $E_B$ should be $E_A$?}, we get
 \begin{align}
-\label{eq:local-unitaries-2}
-\Xi_\bomega^{\bY E_A} \preceq (|\A|\cdot |\B|)^{|C|} \cdot \sum_{\by, \ba_C} \P_{\bY | \bomega}(\by) \,\, \puretomixed{\by} \otimes \sqrt{A_\bomega(\ba_C)} \,\,\rho\,\, \sqrt{A_\bomega(\ba_C)} = \Xi_{\bomega}^{\bY} \otimes \Xi_{\bomega}^{E_A}~.
-\end{align}
-	From~\eqref{eq:local-unitaries-2} and the definition of $\D_\infty$ it follows that $\D_\infty \Big (\Xi_{\bomega}^{\bY E_A} \Big \| \Xi_{\bomega}^{\bY} \otimes \Xi_{\bomega}^{E_A} \Big ) \leq |C| \cdot \log |\A| |\B|$. 
-Applying Quantum Raz's Lemma (Lemma~\ref{lem:quantum_raz}), we have
-\begin{align}
-		\Ex_I \,  \Ex_{\bR | W_C} \I \Big (\bY_i ; E_A | \br \Big )_{\xi} &\leq 		\frac{1}{m} \Ex_{\bR | W_C} \D \Big (\xi_{\br}^{\bY E_A} \Big \| \Xi_{\br}^{\bY} \otimes \Xi_{\br}^{E_A} \Big )\notag\\
-	\intertext{which by \Cref{prop:divergence_chain_rule} is at most}
-		&\leq \frac{1}{m} \Ex_{\bOmega | W_C} \D \Big (\xi_{\bomega}^{\bY E_A} \Big \| \Xi_{\bomega}^{\bY} \otimes \Xi_{\bomega}^{E_A} \Big )~.\notag \\
-	\intertext{Using \Cref{prop:relative_min_entropy_chain_rule2}, this is at most}
-		&\leq 		\frac{1}{m} \Big(\Ex_{\bOmega | W_C} \D \Big (\xi_{\bomega}^{\bY E_A} \Big \| \Xi_{\bomega}^{\bY E_A} \Big) + \Ex_{\bOmega | W_C} \D_\infty \Big (\Xi_{\bomega}^{\bY E_A} \Big \| \Xi_{\bomega}^{\bY} \otimes \Xi_{\bomega}^{E_A} \Big) \, \Big)\notag\\
-	\intertext{and finally using the bounds from~\eqref{eq:claim23-1} and ~\eqref{eq:claim23-2} we get that this is at most}
-		&\leq \frac{1}{m}\Big(\log \frac{1}{\P(W)} +  |C| \cdot \log |\A| |\B|\Big) = \delta~. \label{eq:claim23-3}
-\end{align}
-%Next, we use that $\P_{\bD_i | W_C}(A) = \frac{1}{2}$ (i.e., even conditioned on $W_C$ the probability of $\bD_i = A$ is still $1/2$) to get that
-%$$
-%\Ex_I \,  \Ex_{\bR | \bD_i = A, W_C} I \Big (\bY_i ; E_A | \br \Big )_{\xi} = 2\delta. 
-%$$
-%Applying Lemma~\ref{lem:classical_skew}, 
-%$$ \Ex_I \P_{\bOmega_i | W_C}(A,\dummy) \approx_{O(\sqrt{\delta})}  \Ex_I \P_{\bOmega_i}(A,\dummy) = \frac{\alpha}{2},$$
-%thus from~\eqref{eq:claim23-3} by conditioning on $\bOmega_i = (A,\dummy)$ we deduce 
-%\begin{align}
-%		\Ex_I \, \Ex_{\bR |\bOmega_i=(A,\dummy), W_C} I\big(\bY_i ; E_A | \br \big)_{\xi} & = O\big(\delta/\alpha\big), \label{eq:claim23-4}
-%\end{align}
-%as long as $\alpha = \Omega(\sqrt{\delta})$. 
-Applying Pinsker's inequality (Lemma~\ref{prop:pinsker}) and using that $\bY_i$ is classical, we get
-\begin{align*}
-\Ex_I \, \Ex_{\bR \bY_i | W_C} \,\, \Big \| \xi^{E_A}_{\br,\by_i} -  \xi^{E_A}_{\br} \Big \|_1^2 &\leq 2 \cdot \Ex_I \,\Ex_{\bR \bY_i | W_C} \,\,  \D \Big(  \xi^{E_A}_{\br,\by_i} \, \big \|\, \xi^{E_B}_{\br} \Big )\\
-&= 2\cdot \ln 2\cdot \Ex_I \, \Ex_{\bR \bY_i | W_C} \,\,  \I (\bY_i ; E_A | \br)_\xi \\
-& = O(\delta)~.
-\end{align*} 
-By Items 1 and 2 of \Cref{lem:classical_skew} we get that we can replace the expectation $\Ex_{\bR \bY_i | W_C} $ in the expression $\Ex_I \, \Ex_{\bR \bY_i | W_C} \,\, \Big \| \xi^{E_A}_{\br,\by_i} -  \xi^{E_A}_{\br} \Big \|_1^2$ with the expectation $\Ex_{\bR | W_C} \Ex_{\bY_i | \bOmega_i }$ while incurring an error of at most $\sqrt{\delta}$. 
-We can write
+\Ex_I \, \Ex_{\bR \bY_i | W_C} \,\, \big \| \xi^{E_A}_{\br,\by_i} -  \xi^{E_A}_{\br} \Big \|_1^2 &\leq 2 \cdot \Ex_I \,\Ex_{\bR \bY_i | W_C} \,\,  \D \Big(  \xi^{E_A}_{\br,\by_i} \, \big \|\, \xi^{E_B}_{\br} \big )\notag\\
+&= 2\cdot \ln 2\cdot \Ex_I \, \Ex_{\bR \bY_i | W_C} \,\,  \I (\bY_i ; E_A | \br)_\xi \notag\\
+& = O(\delta)~,\label{eq:claim24-1a}
+\end{align} 
+where the last line is by~\eqref{eq:xi-change-1}. Items 1, 3, and 4 of \Cref{lem:classical_skew} imply that \tnote{can you spell this out?}
 \[
-	\P_{\bR | W_C} \P_{\bY_i | \bOmega_i} = \P_{\bOmega_i | W_C} \P_{\bR_\mi | \bOmega_i  W_C} \P_{\bY_i | \bOmega_i}~.
-\] 
-Items 1, 3, and 4 of \Cref{lem:classical_skew} imply that
-\[
-\left \| \P_I \P_{\bX_i \bY_i} \P_{\bOmega_i | W_C} \P_{\bR_\mi | \bOmega_i  W_C} - \P_I \P_{\bX_i \bY_i | W_C}  \P_{\bOmega_i | W_C} \P_{\bR_\mi | \bX_i \bY_i  W_C} \right \| \leq O(\sqrt{\delta}/\alpha^2)~.
+\Ex_I \left \|  \P_{\bX_i \bY_i} \P_{\bOmega_i | W_C} \P_{\bR_\mi | \bOmega_i  W_C} - \P_{\bX_i \bY_i | W_C}  \P_{\bOmega_i | W_C} \P_{\bR_\mi | \bX_i \bY_i  W_C} \right \| \leq O(\sqrt{\delta}/\alpha^2)~.
 \]
 Marginalizing over $\bX_i \bY_i$ on both side yields
+\begin{equation}\label{eq:claim24-1}
+\Ex_I \left \| \P_{\bOmega_i | W_C} \P_{\bR_\mi | \bOmega_i  W_C} -  \P_{\bOmega_i | W_C} \P_{\bR_\mi | W_C} \right \| \leq O(\sqrt{\delta}/\alpha^2)~.
+\end{equation}
+Using Lemma~\ref{lem:trivial} we introduce $\P_{\bY_i | \bOmega_i }$ in~\eqref{eq:claim24-1} to obtain 
+\begin{equation}\label{eq:claim24-2}
+\Ex_I \left \| \P_{\bY_i | \bOmega_i }\P_{\bOmega_i | W_C} \P_{\bR_\mi | \bOmega_i  W_C} - \P_{\bY_i | \bOmega_i } \P_{\bOmega_i | W_C} \P_{\bR_\mi | W_C} \right \| \leq O(\sqrt{\delta}/\alpha^2)~.
+\end{equation}
+Marginalizing over $\bX_i$ in item 2 of~\Cref{lem:classical_skew} we obtain
+\begin{equation}\label{eq:claim24-3}
+\Ex_{I} \big\|\P_{\bR \bY_i | W_C} - \P_{\bR | W_C} \P_{\bY_i | \bOmega_i }\big\|_1 \,\leq\,\sqrt{\delta}\;.
+\end{equation}
+Using $\bR = \bR_\mi\bOmega_i$ it follows that $\P_{\bR | W_C}=\P_{\bOmega_i | W_C} \P_{\bR_\mi | \bOmega_i  W_C}$. Thus replacing~\eqref{eq:claim24-3} in~\eqref{eq:claim24-2} we get
+\begin{equation}\label{eq:claim24-4}
+\Ex_I \left \| \P_{\bR \bY_i | W_C} - \P_{\bY_i | \bOmega_i } \P_{\bOmega_i | W_C} \P_{\bR_\mi | W_C} \right \| \leq O(\sqrt{\delta}/\alpha^2)~.
+\end{equation}
+Combining~\eqref{eq:claim24-4} with~\eqref{eq:claim24-1a} gives
 \[
-\left \| \P_I \P_{\bOmega_i | W_C} \P_{\bR_\mi | \bOmega_i  W_C} - \P_I \P_{\bOmega_i | W_C} \P_{\bR_\mi | W_C} \right \| \leq O(\sqrt{\delta}/\alpha^2)~.
+	\Ex_I \, \Ex_{\bOmega_i | W_C} \, \Ex_{\bR_\mi | W_C} \, \Ex_{\bY_i | \bOmega_i} \,\, \big \| \xi^{E_A}_{\br,\by_i} -  \xi^{E_A}_{\br} \big \|_1^2 \leq O(\sqrt{\delta}/\alpha^2)\;.
 \]
-Thus we get that 
-\[
-	\Ex_I \, \Ex_{\bOmega_i | W_C} \, \Ex_{\bR_\mi | W_C} \, \Ex_{\bY_i | \bOmega_i} \,\, \Big \| \xi^{E_A}_{\br,\by_i} -  \xi^{E_A}_{\br} \Big \|_1^2 \leq O(\sqrt{\delta}/\alpha^2).
-\]
+\tnote{I rewrote the above because it was really hard to follow. Could you check?}
+\tnote{Then, I ran out of steam for the rest of the proof of this claim. Could you clear it up? It's really hard to follow: you never write what equation is used to derive what, so all these ``yields'' and ``we get that'' are exhausting to trace back. For an example, compare the above to how it was in the original document.}
 Using the fact that $\| \P_I \P_{\bOmega_i | W_C} - \P_I \P_{\bOmega_i} \| \leq \sqrt{\delta}$ and conditioning on $\bD_i = A$ (which occurs with probability $1/2$) we get
 \[
 	\Ex_I \, \Ex_{\bM_i | \bD_i =A} \, \Ex_{\bR_\mi | W_C} \, \Ex_{\bY_i | \bOmega_i=(A,\bM_i)} \,\, \Big \| \xi^{E_A}_{\br,\by_i} -  \xi^{E_A}_{\br} \Big \|_1^2 \leq O(\sqrt{\delta}/\alpha^2).
@@ -1075,44 +1090,50 @@ which concludes the proof of \Cref{claim:xi-change-y}.
 %$$\P_I \cdot \P_{\bR \bY_i|\bOmega_i=(A,\dummy), W_C} \approx_{O(\sqrt{\delta}/\alpha^2)} \P_I \cdot \P_{\bR_\mi|W_C} \cdot \P_{\bY_i}.$$
 \end{proof}
 
-\Cref{claim:xi-change-y} allows us to obtain the unitaries $U_{\br_\mi,x}$, $V_{\br_\mi,y}$, and $V_{\br_\mi,x,y}$. First, note that when $\bomega_i = (A,x)$ for some $x \in \X$, then $A_\bomega(\ba_C)$ is equal to $A_{\bomega_\mi,\dummyx}(\ba_C)$ (defined in Eq.~\eqref{eq:states-operators-3}). This is because given $\bomega_i = (A,x)$, the random variable $\bX_i$ takes on the value $\dummy$ with probability $\eta$ and is $x$ with probability $1 - \eta$. In particular when $x = \dummy$, then $A_\bomega(\ba_C) = \A_{\bomega_\mi,\dummy}(\ba_C)$. 
+We are now ready to give the proof of Lemma~\ref{lem:unitary_bounds}.
+
+\begin{proof}[Proof of Lemma~\ref{lem:unitary_bounds}]
+We start by showing the existence of unitaries $V_{\br_\mi,y}$ that satisfy~\eqref{eq:vy_bound}. 
+First, note that when $\bomega_i = (A,x)$ for some $x \in \X$, then $A_\bomega(\ba_C)$ is equal to $A_{\bomega_\mi,\dummyx}(\ba_C)$ (defined in Eq.~\eqref{eq:states-operators-3}). This is because given $\bomega_i = (A,x)$, the random variable $\bX_i$ takes on the value $\dummy$ with probability $\eta$ and is $x$ with probability $1 - \eta$. In particular when $x = \dummy$, then $A_\bomega(\ba_C) = \A_{\bomega_\mi,\dummy}(\ba_C)$. 
 
 %The proof of~\eqref{eq:vy_bound} essentially now follows from Claim~\ref{claim:xi-change-y} and Uhlmann's theorem. We give the details. 
-Let $\br_\mi = (\bomega_\mi,\ba_C,\bb_C)$, $x \in \X$, and $y \in \Y$. We can write $\xi^{E_A}_\ssxy$ and $\xi^{E_A}_\ssxp$ explicitly as
+Let $\br_\mi = (\bomega_\mi,\ba_C,\bb_C)$, $x \in \X$, and $y \in \Y$. We can write $\xi^{E_A}_\ssxy$ and $\xi^{E_A}_\ssxp$ explicitly as \tnote{Can you spell this out?}\tnote{Is the subscript $\bomega_\mi$ on $B$ a typo? It wasn't there before}\tnote{I also didn't get how the $\gamma$s appear}
 \begin{align*}
 	\xi^{E_A}_\ssxy &= \gamma_\sspxy^{-2} \cdot (A_{\bomega_\mi,\dummyx}(\ba_C))^{1/2} \sqrt{\rho} \,\, \overline{B}_{\bomega_\mi,\by_i}(\bb_C) \,\, \sqrt{\rho}\,\, (A_{\bomega_\mi,\dummyx}(\ba_C))^{1/2},\\ 
 	\xi^{E_A}_\ssxp &= \gamma_\sspxp^{-2} \cdot (A_{\bomega_\mi,\dummyx}(\ba_C))^{1/2} \sqrt{\rho} \,\, \overline{B}_{\bomega_\mi,\dummy}(\bb_C) \,\, \sqrt{\rho}\,\, (A_{\bomega_\mi,\dummyx}(\ba_C))^{1/2}~.
 \end{align*}
-Observe now that the states $\bigket{\wt{\Phi}_\sspy}$ and $\bigket{\wt{\Phi}_\sspp}$ introduced in \Cref{sec:states-operators} purify $\xi^{E_A}_\sspy$ and $\xi^{E_A}_\sspp$ respectively. By Uhlmann's Theorem (\Cref{thm:uhlmann}), there exists a unitary $V_{\br_\mi, y}$ acting on $E_B$ such that 
+Observe now that the states $\bigket{\wt{\Phi}_\sspy}$ and $\bigket{\wt{\Phi}_\sspp}$ introduced in \Cref{sec:states-operators} purify $\xi^{E_A}_\sspy$ and $\xi^{E_A}_\sspp$ respectively. By Uhlmann's Theorem (\Cref{thm:uhlmann}), there exists a unitary $V_{\br_\mi, y}$ acting on $E_B$ such that \tnote{This needs one more step: the first equality is doing two things at once. It makes it hard to verify}
 \begin{align}
 	\Ex_I \, \Ex_{\bR_\mi |  W_C} \, \, \Ex_{Y} \,\,  \bigbra{\wt{\Phi}_\sspy } V_{\br_\mi, y}  \bigket{\wt{\Phi}_\sspp}  
 %	&\qquad = \frac{1}{m} \sum_i \Ex_{\bR_\mi | \bomega_i = (B,\dummy), W} \, \, \Ex_{X_i}  \,\, F \left (\xi_\ssxip^{E_B}, \xi_\sspp^{E_B} \right)  \notag \\
 	& \geq 1 - \frac{1}{2} \Ex_i \, \Ex_{\bR_\mi |  W} \, \, \Ex_{Y}  \,\,  \Big \| \xi^{E_A}_\sspy - \xi^{E_A}_\sspp \Big \|_1 \notag \\
-	& \geq 1 - O(\delta^{1/4}/\alpha^2),
+	& \geq 1 - O(\delta^{1/4}/\alpha^2)\;,
 \end{align}
-where the first inequality follows from the Fuchs-van de Graaf inequality (Eq.~\eqref{eq:fuchs-graaf}) and the second uses Jensen's inequality and Claim~\ref{claim:xi-change-y}. Translating from inner products to Euclidean distance and applying Jensen's inequality, we get that
+where the first inequality follows from the Fuchs-van de Graaf inequality (Eq.~\eqref{eq:fuchs-graaf}) and the second uses Jensen's inequality and Claim~\ref{claim:xi-change-y}\tnote{and conditioning on $x=\dummy$?}. Translating from inner products to Euclidean distance and applying Jensen's inequality, we get that
 \[
 	\Ex_I \, \Ex_{\bR_\mi |  W_C} \, \, \Ex_{Y} \,\,   \left \| \bigket{\wt{\Phi}_\sspy } - V_{\br_\mi, y}  \bigket{\wt{\Phi}_\sspp}  \right \| \leq \sqrt{\Ex_I \, \Ex_{\bR_\mi |  W_C} \, \, \Ex_{Y} \,\,   \left \| \bigket{\wt{\Phi}_\sspy } - V_{\br_\mi, y}  \bigket{\wt{\Phi}_\sspp}  \right \|^2} \leq O(\delta^{1/8}/\alpha)~.
 \]
-Applying Markov's inequality over the index $i$ then establishes~\eqref{eq:vy_bound}.
+Applying Markov's inequality over the index $i$ establishes~\eqref{eq:vy_bound}.
 
+The argument for~\eqref{eq:vxy_bound} proceeds similarly, starting with the observation that the states $\bigket{\wt{\Phi}_\sspxy}$ and $\bigket{\wt{\Phi}_\sspxp}$ purify the reduced density matrices $\xi^{E_A}_\sspxy$ and $\xi^{E_A}_\sspxp$ respectively. 
 
-The argument for~\eqref{eq:vxy_bound} proceeds in exactly the same way, starting with the observation that the states $\bigket{\wt{\Phi}_\sspxy}$ and $\bigket{\wt{\Phi}_\sspxp}$ purify the reduced density matrices $\xi^{E_A}_\sspxy$ and $\xi^{E_A}_\sspxp$ respectively. 
-
-To prove~\eqref{eq:ux_bound}, we use the same exact argument, except we need to analyze the state $\Lambda$, defined as
+To prove~\eqref{eq:ux_bound} we again use a similar argument. The main difference is that  we need to analyze the state $\Lambda$ defined as
 \[
 \Lambda^{\bOmega \bX E_AE_B\ac} = \sum_{\bomega, \bx, \ba_C, \bb_C} \P_{\bOmega \bX} (\bomega, \bx) \, \puretomixed{\bomega, \bx}   \otimes \left (\sqrt{A_{\bx}(\ba_C)} \otimes \sqrt{B_{\bomega}(\bb_C)} \right ) \left [\psi \right ] \otimes \puretomixed{\ba_C, \bb_C}~,
 \]
-as well as the state $\lambda$ which is $\Lambda$ conditioned on the event $W_C$. The states $\lambda$ and $\Lambda$ are analogous to $\xi$ and $\Xi$ except they keep track of Alice's question vector $\bX$ instead of $\bY$. The following Claim can be proved in the same way as in \Cref{claim:xi-change-y}:
+as well as the state $\lambda$ which is $\Lambda$ conditioned on the event $W_C$. The states $\lambda$ and $\Lambda$ are analogous to $\xi$ and $\Xi$ except that they keep track of Alice's question vector $\bX$ instead of $\bY$. The following claim can be shown in the same way as in \Cref{claim:xi-change-y}. \tnote{I think this is a bit cavalier. Maybe we could at least define the $\Lambda$ and state the claim right after \Cref{claim:xi-change-y}, rather than adding it here as an afterthought.}
+
 \begin{claim}\label{claim:yi-change-x}
-The following bound holds:
+The following holds:
 \begin{align}
 \label{eq:E_B_1}
-\Ex_I \, \Ex_{\bR_\mi |  W_C} \, \, \, \Ex_{XY} \,\, \Big \| \lambda^{E_B}_\ssxy - \lambda^{E_B}_\sspy \Big \|_1^2 = O\big(\sqrt{\delta}/\alpha^3 \Big)
+\Ex_I \, \Ex_{\bR_\mi |  W_C} \, \, \, \Ex_{XY} \,\, \Big \| \lambda^{E_B}_\ssxy - \lambda^{E_B}_\sspy \Big \|_1^2 = O\big(\sqrt{\delta}/\alpha^3 \Big)\;,
 \end{align}
 where the expectation over $XY$ is with respect to the game distribution $\mu_{XY}$. 
 \end{claim}
-Using this, we can use Uhlmann's Theorem again to deduce the existence of unitaries $U_{\br_\mi,x}$ that satisfies~\eqref{eq:ux_bound}. 
+
+Using this, we can use Uhlmann's Theorem as previously to deduce the existence of unitaries $U_{\br_\mi,x}$ that satisfies~\eqref{eq:ux_bound}. 
+\end{proof}
 
 
 
